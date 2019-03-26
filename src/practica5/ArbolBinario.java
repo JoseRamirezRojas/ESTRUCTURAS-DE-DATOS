@@ -56,7 +56,7 @@ public abstract class ArbolBinario<T>{
 
     /**
      * Realiza un recorrido BFS del árbol.
-     * @param funcion Dicta lo que debe hacer el elemento con cada elemento del recorrido.
+     * @param funcion Dicta lo que debe hacer el método con cada elemento del recorrido.
      */
     public void bfs(Consumer<T> funcion){
         if(this.raiz!=null){
@@ -78,7 +78,7 @@ public abstract class ArbolBinario<T>{
      * Realiza un recorrido DFS del árbol.Recibe un entero que nos dirá qué tipo de recorrido DFS se realiza.
      * @param tipo    Entero que indica el tipo de recorrido a realizar: 1 para preorden, 2 para inorden,
      *                y 3 para postorden.
-     * @param funcion Dicta lo que debe hacer el elemento con cada elemento del recorrido.
+     * @param funcion Dicta lo que debe hacer el método con cada elemento del recorrido.
      */
     public void dfs(int tipo, Consumer<T> funcion){
         switch (tipo) {
@@ -99,7 +99,7 @@ public abstract class ArbolBinario<T>{
     /**
      * Algoritmo recursivo de recorrido preorden
      * @param v         Vertice del árbol con el que se hace el recorrido
-     * @param funcion   Dicta lo que debe hacer el elemento con cada elemento del recorrido.
+     * @param funcion   Dicta lo que debe hacer el método con cada elemento del recorrido.
      */
     private void dfsPreOrder(Vertice v,Consumer<T> funcion){
         if(v!=null){
@@ -112,7 +112,7 @@ public abstract class ArbolBinario<T>{
     /**
      * Algoritmo recursivo de recorrido inorden
      * @param v         Vertice del árbol con el que se hace el recorrido
-     * @param funcion   Dicta lo que debe hacer el elemento con cada elemento del recorrido.
+     * @param funcion   Dicta lo que debe hacer el método con cada elemento del recorrido.
      */
     private void dfsInOrder(Vertice v,Consumer<T> funcion){
         if(v!=null){
@@ -125,7 +125,7 @@ public abstract class ArbolBinario<T>{
     /**
      * Algoritmo recursivo de recorrido postorden
      * @param v         Vertice del árbol con el que se hace el recorrido
-     * @param funcion   Dicta lo que debe hacer el elemento con cada elemento del recorrido.
+     * @param funcion   Dicta lo que debe hacer el método con cada elemento del recorrido.
      */
     private void dfsPostOrder(Vertice v,Consumer<T> funcion){
         if(v!=null){
