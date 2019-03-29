@@ -30,7 +30,29 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
      */
     @Override
     public void agrega(T elemento){
-        if(elemento
+        Vertice vertice = new Vertice(elemento);
+        elementos ++;
+        if(this.raiz==null){
+            this.raiz = vertice;
+        }
+        agregaRecursivo();
+
+        
+    }
+    public void agregaRecursivo(Vertice actual, Vertice nuevo){
+        if(nuevo.elemento.compareTo(actual.elemento)<=0){
+            if(actual.izquierdo== null){
+                nuevo = actual.izquierdo;
+            }
+            agregaRecursivo(actual.izquierdo, nuevo);
+        }
+        if(nuevo.elemento.compareTo(actual.elemento)>0){
+            if(actual.derecho == null){
+                nuevo = actual.derecho;
+            }
+            agregaRecursivo(actual.derecho, nuevo);
+        }
+
     }
 
     /**
@@ -41,7 +63,28 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
      */
     @Override
     public boolean contiene(T elemento){
-        // Aquí va su código.
+        // Aquí va su codigo
+        if(this.busca(elemento)!=null){
+            return true;
+
+        }
+        return false;
+        
+    }
+    public Vertice busca(T elemento){
+        Vertice v = raiz;
+        while(v!=null){
+            if(elemento.compareTo(v.elemento)==0){
+                return v;
+            }
+            if(elemento.compareTo(v.elemento)<0){
+                v=v.izquierdo;
+            }
+            v=v.derecho;
+
+        }       
+
+
     }
 
     /**
@@ -52,5 +95,23 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
     @Override
     public boolean elimina(T elemento){
         // Aquí va su código.
+        if(this.busca(elemento)!=null){
+            if(this.busca(elemento).izquierdo==null&&this.busca(elemento).derecho==null){
+                this.busca(elemento).padre= null;
+                elementos--;
+            }
+            if(this.busca(elemento).izquierdo==null&&this.busca(elemento).derecho!=null){
+                this.busca(elemento).derecho.padre=this.busca(elemento).padre;
+                elementos--;
+            }
+            if(this.busca(elemento).derecho==null&&this.busca(elemento).izquierdo!=null){
+                this.busca(elemento).izquierdo.padre=this.busca(elemento).padre;
+                elementos--;
+            }
+            if(this.busca(elemento).derecho!=null&&this.busca(elemento).izquierdo!=null){
+                b
+            }
+        return false;
+
     }
 }
