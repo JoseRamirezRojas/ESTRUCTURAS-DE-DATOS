@@ -143,4 +143,39 @@ public abstract class ArbolBinario<T>{
     public int getElementos(){
         return elementos;
     }
+
+    /**
+     * Gira sobre un vértice del árbol a la derecha
+     * @param v  Elemento del vértice sobre el que giramos
+     */
+    public void giraDerecha(Vertice v){
+        if (v.izquierdo == null)
+            return;
+        
+		Vertice temp = v.izquierdo;
+		temp.padre=v.padre;
+		v.padre = temp;
+		v.izquierdo=temp.derecho;
+		if (temp.derecho!=null)
+			temp.derecho.padre = v;
+		temp.derecho = v;
+    }
+
+    /**
+     * Gira sobre un vértice del árbol a la izquierda
+     * @param v  Elemento del vértice sobre el que giramos
+     */
+    public void giraIzquierda(Vertice v){
+        if (v.derecho == null)
+            return;
+
+        Vertice temp = v.derecho;
+        temp.padre = v.padre;
+        v.padre = temp;
+        v.derecho=temp.izquierdo;
+        if (temp.izquierdo!=null) {
+            temp.izquierdo.padre = v;
+        }
+        temp.izquierdo = v;
+    }
 }
