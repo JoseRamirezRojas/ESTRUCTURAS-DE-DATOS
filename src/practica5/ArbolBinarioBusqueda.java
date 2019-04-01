@@ -86,6 +86,12 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
 
 
     }
+    public Vertice buscaIzquierdo(Vertice v){
+        if(v.izquierdo!=null){
+            return buscaIzquierdo(v.izquierdo);
+        }
+        return v;
+    }
 
     /**
      * Elimina un elemento del árbol
@@ -100,7 +106,7 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
                 this.busca(elemento).padre= null;
                 elementos--;
             }
-            if(this.busca(elemento).izquierdo==null&&this.busca(elemento).derecho!=null){
+            if(this.busca(elemento).izquierdo==null&&this.busca(elemento).derecho!=null){//caso 2
                 this.busca(elemento).derecho.padre=this.busca(elemento).padre;
                 elementos--;
             }
@@ -109,9 +115,19 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
                 elementos--;
             }
             if(this.busca(elemento).derecho!=null&&this.busca(elemento).izquierdo!=null){
-                b
+                this.buscaIzquierdo(this.busca(elemento).derecho) = this.busca(elemento);
+                if(this.buscaIzquierdo(this.busca(elemento).derecho).derecho==null){//caso 1 en caso 3
+                    this.buscaIzquierdo(this.busca(elemento).derecho).padre= null;
+                    elementos--;
+                }
+                if(this.buscaIzquierdo(this.busca(elemento).derecho).derecho!=null){
+                    this.buscaIzquierdo(this.busca(elemento).derecho)= this.buscaIzquierdo(this.busca(elemento).padre);//caso 2 en caso 3
+                    elementos--;
+                }
+
             }
         return false;
 
     }
+
 }
