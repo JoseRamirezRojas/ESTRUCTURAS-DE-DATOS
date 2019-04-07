@@ -43,7 +43,7 @@ public abstract class ArbolBinario<T>{
      */
     public ArbolBinario(T[] arreglo){
         for (T elemento: arreglo) {
-            this.agrega(elemento);
+            agrega(elemento);
         }
     }
 
@@ -59,17 +59,18 @@ public abstract class ArbolBinario<T>{
      * @param funcion Dicta lo que debe hacer el método con cada elemento del recorrido.
      */
     public void bfs(Consumer<T> funcion){
-        if(this.raiz!=null){
+        if(raiz!=null){
             Cola<Vertice> cola=new Cola<>();
             cola.mete(this.raiz);
             while (!cola.esVacia()){
                 Vertice v=cola.mira();
+                cola.saca();
+                funcion.accept(v.elemento);
                 if (v.izquierdo!=null)
                     cola.mete(v.izquierdo);
                 if (v.derecho!=null)
                     cola.mete(v.derecho);
-                funcion.accept(v.elemento);
-                cola.saca();
+
             }
         }
     }
@@ -85,12 +86,15 @@ public abstract class ArbolBinario<T>{
             case 1:
                 //pre order
                 dfsPreOrder(raiz,funcion);
+                break;
             case 2:
                 //in order
                 dfsInOrder(raiz,funcion);
+                break;
             case 3:
                 //post order
                 dfsPostOrder(raiz,funcion);
+                break;
             default:
                 throw new IllegalArgumentException();
         }

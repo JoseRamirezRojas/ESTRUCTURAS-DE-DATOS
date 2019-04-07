@@ -1,4 +1,4 @@
-package practica6;
+package practica5;
 
 /**
  * Ramírez Rojas José David
@@ -36,6 +36,7 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
         elementos++;
         if (raiz == null) {
             raiz = vertice;
+            return;
         }
         agregaRecursivo(raiz,vertice);
 
@@ -45,14 +46,16 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
     public void agregaRecursivo(Vertice actual, Vertice nuevo) {
         if (nuevo.elemento.compareTo(actual.elemento) <= 0) {
             if (actual.izquierdo == null) {
-                nuevo = actual.izquierdo;
+                actual.izquierdo=nuevo;
+                nuevo.padre=actual;
                 return;
             }
             agregaRecursivo(actual.izquierdo, nuevo);
         }
         if (nuevo.elemento.compareTo(actual.elemento) > 0) {
             if (actual.derecho == null) {
-                nuevo = actual.derecho;
+                actual.derecho=nuevo;
+                nuevo.padre=actual;
                 return;
             }
             agregaRecursivo(actual.derecho, nuevo);
@@ -62,7 +65,7 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
 
     /**
      * @param elemento            Elemento sobre el que queremos saber si está en el árbol
-     * @return <code>true</code>   Si la pila es igual al objeto recibido;
+     * @return <code>true</code>   Si el elemento es igual al recibido;
      * <code>false</code>  En otro caso.
      */
     @Override
@@ -75,14 +78,13 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
     public Vertice busca(T elemento) {
         Vertice v = raiz;
         while (v != null) {
-            if (elemento.compareTo(v.elemento) == 0) {
+            if (elemento.compareTo(v.elemento) == 0)
                 return v;
-            }
-            if (elemento.compareTo(v.elemento) < 0) {
-                v = v.izquierdo;
-            }
-            v = v.derecho;
 
+            if (elemento.compareTo(v.elemento) < 0)
+                v = v.izquierdo;
+            else
+                v = v.derecho;
         }
 
         return null;
@@ -105,7 +107,8 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
     @Override
     public boolean elimina(T elemento) {
         // Aquí va su código.
-        if (this.busca(elemento) != null) {
+        if (busca(elemento) != null) {
+
             //caso 1: Que no tenga hijos el elemento a eliminar
             if (busca(elemento).izquierdo == null && busca(elemento).derecho == null) {
                 busca(elemento).padre = null;
@@ -114,15 +117,15 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
             }
 
             //caso 2: El vértice a eliminar tiene un solo hijo
-            if (busca(elemento).izquierdo == null && busca(elemento).derecho != null) {
-                busca(elemento).derecho.padre = busca(elemento).padre;
-                busca(elemento).padre.derecho = busca(elemento).derecho;
-                elementos--;
-                return true;
-            }
             if (busca(elemento).derecho == null && busca(elemento).izquierdo != null) {
                 busca(elemento).izquierdo.padre = busca(elemento).padre;
                 busca(elemento).padre.izquierdo = busca(elemento).izquierdo;
+                elementos--;
+                return true;
+            }
+            if (busca(elemento).izquierdo == null && busca(elemento).derecho != null) {
+                busca(elemento).derecho.padre = busca(elemento).padre;
+                busca(elemento).padre.derecho = busca(elemento).derecho;
                 elementos--;
                 return true;
             }
@@ -131,17 +134,19 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
             if (busca(elemento).derecho != null && busca(elemento).izquierdo != null) {
                 Vertice aux = busca(elemento).derecho;
                 Vertice masIzquierdo = buscaIzquierdo(aux);
-                masIzquierdo = busca(elemento);
-                if (masIzquierdo == null) {
+                busca(elemento).elemento=masIzquierdo.elemento;
+                if (masIzquierdo.derecho == null) {
                     //caso 1 en caso 3
-                    masIzquierdo.padre = null;
+                    masIzquierdo.padre.izquierdo=null;
+                    masIzquierdo.padre=null;
                     elementos--;
                     return true;
                 }
 
                 if (masIzquierdo.derecho != null) {
                     //caso 2 en caso 3
-                    masIzquierdo = buscaIzquierdo(busca(elemento).padre);
+                    masIzquierdo.derecho.padre=masIzquierdo.padre;
+                    masIzquierdo.padre.izquierdo=masIzquierdo.derecho;
                     elementos--;
                     return true;
                 }
@@ -153,11 +158,14 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
     }
 
     public static void main (String[]args){
-        Integer [] arr= {4,2,3,1,5,6,7,8,12,10,11,9,13,14,15};
-        ArbolBinarioBusqueda<Integer> arbol=new ArbolBinarioBusqueda<>(arr);
-        for (Integer integer:arr) {
-            arbol.dfs(2,f -> System.out.println(f));
-        }
-
+        Character [] arr= {'k','h','b','a','f','c','x','n','d','e'};
+        ArbolBinarioBusqueda<Character> arbol=new ArbolBinarioBusqueda<>(arr);
+        arbol.dfs(2,f -> System.out.println(f));
+        arbol.agrega('g');
+        System.out.println();
+        arbol.dfs(2,f -> System.out.println(f));
+        arbol.elimina('b');
+        System.out.println();
+        arbol.dfs(2,f -> System.out.println(f));
     }
 }
