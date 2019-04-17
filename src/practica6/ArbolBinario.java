@@ -1,4 +1,5 @@
-package practica5;
+package practica6;
+
 import java.util.function.Consumer;
 
 /**
@@ -25,7 +26,7 @@ public abstract class ArbolBinario<T>{
         }
     }
 
-    /* variables de todo arbol */
+    //variables de todo arbol
     protected Vertice raiz;
     protected int elementos;
 
@@ -59,18 +60,17 @@ public abstract class ArbolBinario<T>{
      * @param funcion Dicta lo que debe hacer el método con cada elemento del recorrido.
      */
     public void bfs(Consumer<T> funcion){
-        if(raiz!=null){
+        if(this.raiz!=null){
             Cola<Vertice> cola=new Cola<>();
             cola.mete(this.raiz);
             while (!cola.esVacia()){
                 Vertice v=cola.mira();
-                cola.saca();
-                funcion.accept(v.elemento);
                 if (v.izquierdo!=null)
                     cola.mete(v.izquierdo);
                 if (v.derecho!=null)
                     cola.mete(v.derecho);
-
+                funcion.accept(v.elemento);
+                cola.saca();
             }
         }
     }
@@ -149,37 +149,177 @@ public abstract class ArbolBinario<T>{
     }
 
     /**
+     * Auxiliar de giros del árbol para conectar vértices
+     * @param v
+     */
+    private void conectaConPadre(Vertice u,Vertice v){
+        v.padre=u;
+        u.derecho=v;
+    }
+
+    /**
+     * Auxiliar de giros del árbol para conectar vértices
+     * @param v
+     */
+    private void conectaAlGirarDerecha(Vertice u,Vertice v){
+
+    }
+
+    /**
+     * Auxiliar de giros del árbol para conectar vértices
+     * @param v
+     */
+    private void conectaConHijoIzquierdo(Vertice v){
+
+    }
+
+    /**
      * Gira sobre un vértice del árbol a la derecha
-     * @param v  Elemento del vértice sobre el que giramos
+     * @param v  Vértice del árbol sobre el que giramos
      */
     public void giraDerecha(Vertice v){
+        if(!contiene(v.elemento))
+            return;
         if (v.izquierdo == null)
             return;
-        
-		Vertice temp = v.izquierdo;
-		temp.padre=v.padre;
-		v.padre = temp;
-		v.izquierdo=temp.derecho;
-		if (temp.derecho!=null)
-			temp.derecho.padre = v;
-		temp.derecho = v;
+
+        Vertice aux=v;
+        Vertice i = aux.izquierdo;
+        if(aux.padre==null) {
+//            v.padre = aux2;
+            if (i.derecho != null) {
+                aux.izquierdo = i.derecho;
+                aux.izquierdo.padre=aux;
+                i.derecho = aux;
+                aux.padre=i;
+                raiz = i;
+                i.padre=null;
+                return;
+//                aux2.derecho.padre = v;
+            }
+            aux.izquierdo=null;
+            i.derecho = aux;
+            aux.padre=i;
+            raiz = i;
+            i.padre=null;
+            return;
+        }
+        else {
+            Vertice p = v.padre;
+            if (aux.padre.derecho==aux) {
+//                i.padre=v.padre;
+//                p.derecho=temp;
+//                v.izquierdo=i.derecho;
+                if (i.derecho!=null) {
+                    aux.izquierdo=i.derecho;
+                    aux.izquierdo.padre=aux;
+                    i.derecho = aux;
+                    aux.padre = i;
+                    p.derecho = i;
+                    i.padre = p;
+                    return;
+//                    i.derecho.padre = v;
+                }
+                aux.izquierdo = null;
+                i.derecho = aux;
+                aux.padre = i;
+                p.derecho = i;
+                i.padre = p;
+                return;
+            }
+            if (aux.padre.izquierdo==aux) {
+                if (i.derecho!=null) {
+                    aux.izquierdo=i.derecho;
+                    aux.izquierdo.padre=aux;
+                    i.derecho = aux;
+                    aux.padre = i;
+                    p.izquierdo = i;
+                    i.padre = p;
+                    return;
+//                    i.derecho.padre = v;
+                }
+                aux.izquierdo = null;
+                i.derecho = aux;
+                aux.padre = i;
+                p.izquierdo = i;
+                i.padre = p;
+                return;
+            }
+        }
+
     }
 
     /**
      * Gira sobre un vértice del árbol a la izquierda
-     * @param v  Elemento del vértice sobre el que giramos
+     * @param v  Vértice del árbol sobre el que giramos
      */
     public void giraIzquierda(Vertice v){
+        if(!contiene(v.elemento))
+            return;
         if (v.derecho == null)
             return;
 
-        Vertice temp = v.derecho;
-        temp.padre = v.padre;
-        v.padre = temp;
-        v.derecho=temp.izquierdo;
-        if (temp.izquierdo!=null) {
-            temp.izquierdo.padre = v;
+        Vertice aux=v;
+        Vertice d = aux.derecho;
+        if(aux.padre==null) {
+//            v.padre = aux2;
+            if (d.izquierdo != null) {
+                aux.derecho = d.izquierdo;
+                aux.derecho.padre=aux;
+                d.izquierdo = aux;
+                aux.padre=d;
+                raiz = d;
+                d.padre=null;
+                return;
+//                aux2.derecho.padre = v;
+            }
+            aux.derecho=null;
+            d.izquierdo = aux;
+            aux.padre=d;
+            raiz = d;
+            d.padre=null;
+            return;
         }
-        temp.izquierdo = v;
+        else {
+            Vertice p = v.padre;
+            if (aux.padre.derecho==aux) {
+//                i.padre=v.padre;
+//                p.derecho=temp;
+//                v.izquierdo=i.derecho;
+                if (d.izquierdo!=null) {
+                    aux.derecho=d.izquierdo;
+                    aux.derecho.padre=aux;
+                    d.izquierdo = aux;
+                    aux.padre = d;
+                    p.derecho = d;
+                    d.padre = p;
+                    return;
+//                    i.derecho.padre = v;
+                }
+                aux.derecho = null;
+                d.izquierdo = aux;
+                aux.padre = d;
+                p.derecho = d;
+                d.padre = p;
+                return;
+            }
+            if (aux.padre.izquierdo==v) {
+                if (d.izquierdo != null){
+                    aux.derecho = d.izquierdo;
+                    aux.derecho.padre = aux;
+                    d.izquierdo=aux;
+                    aux.padre=d;
+                    p.izquierdo=d;
+                    d.padre=p;
+                    return;
+                }
+                aux.derecho = null;
+                d.izquierdo=aux;
+                aux.padre=d;
+                p.izquierdo=d;
+                d.padre=p;
+                return;
+            }
+        }
     }
 }
