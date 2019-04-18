@@ -149,31 +149,6 @@ public abstract class ArbolBinario<T>{
     }
 
     /**
-     * Auxiliar de giros del árbol para conectar vértices
-     * @param v
-     */
-    private void conectaConPadre(Vertice u,Vertice v){
-        v.padre=u;
-        u.derecho=v;
-    }
-
-    /**
-     * Auxiliar de giros del árbol para conectar vértices
-     * @param v
-     */
-    private void conectaAlGirarDerecha(Vertice u,Vertice v){
-
-    }
-
-    /**
-     * Auxiliar de giros del árbol para conectar vértices
-     * @param v
-     */
-    private void conectaConHijoIzquierdo(Vertice v){
-
-    }
-
-    /**
      * Gira sobre un vértice del árbol a la derecha
      * @param v  Vértice del árbol sobre el que giramos
      */
@@ -186,7 +161,6 @@ public abstract class ArbolBinario<T>{
         Vertice aux=v;
         Vertice i = aux.izquierdo;
         if(aux.padre==null) {
-//            v.padre = aux2;
             if (i.derecho != null) {
                 aux.izquierdo = i.derecho;
                 aux.izquierdo.padre=aux;
@@ -195,7 +169,6 @@ public abstract class ArbolBinario<T>{
                 raiz = i;
                 i.padre=null;
                 return;
-//                aux2.derecho.padre = v;
             }
             aux.izquierdo=null;
             i.derecho = aux;
@@ -207,9 +180,6 @@ public abstract class ArbolBinario<T>{
         else {
             Vertice p = v.padre;
             if (aux.padre.derecho==aux) {
-//                i.padre=v.padre;
-//                p.derecho=temp;
-//                v.izquierdo=i.derecho;
                 if (i.derecho!=null) {
                     aux.izquierdo=i.derecho;
                     aux.izquierdo.padre=aux;
@@ -218,7 +188,6 @@ public abstract class ArbolBinario<T>{
                     p.derecho = i;
                     i.padre = p;
                     return;
-//                    i.derecho.padre = v;
                 }
                 aux.izquierdo = null;
                 i.derecho = aux;
@@ -236,7 +205,6 @@ public abstract class ArbolBinario<T>{
                     p.izquierdo = i;
                     i.padre = p;
                     return;
-//                    i.derecho.padre = v;
                 }
                 aux.izquierdo = null;
                 i.derecho = aux;
@@ -262,7 +230,6 @@ public abstract class ArbolBinario<T>{
         Vertice aux=v;
         Vertice d = aux.derecho;
         if(aux.padre==null) {
-//            v.padre = aux2;
             if (d.izquierdo != null) {
                 aux.derecho = d.izquierdo;
                 aux.derecho.padre=aux;
@@ -271,7 +238,6 @@ public abstract class ArbolBinario<T>{
                 raiz = d;
                 d.padre=null;
                 return;
-//                aux2.derecho.padre = v;
             }
             aux.derecho=null;
             d.izquierdo = aux;
@@ -283,9 +249,6 @@ public abstract class ArbolBinario<T>{
         else {
             Vertice p = v.padre;
             if (aux.padre.derecho==aux) {
-//                i.padre=v.padre;
-//                p.derecho=temp;
-//                v.izquierdo=i.derecho;
                 if (d.izquierdo!=null) {
                     aux.derecho=d.izquierdo;
                     aux.derecho.padre=aux;
@@ -294,7 +257,6 @@ public abstract class ArbolBinario<T>{
                     p.derecho = d;
                     d.padre = p;
                     return;
-//                    i.derecho.padre = v;
                 }
                 aux.derecho = null;
                 d.izquierdo = aux;
