@@ -25,9 +25,15 @@ public class ArbolAVL <T extends Comparable<T>> extends ArbolBinarioBusqueda<T>{
     }
 
 
-    protected int getAltura(Vertice v){       //falta
+    protected int getAltura(Vertice v){       
+        if (v == null){
+        	return -1;
+        }
+
         if(v instanceof ArbolAVL.VerticeAVL)
             return ((VerticeAVL) v).altura;
+
+        return (Math.max(getAltura(v.izquierdo), getAltura(v.derecho))+1);
     }
 
     protected void actualizaAltura(Vertice v){
@@ -63,7 +69,7 @@ public class ArbolAVL <T extends Comparable<T>> extends ArbolBinarioBusqueda<T>{
     	if(v==null){
     		return;
     	}
-    	v.altura == getAltura(v);
+    	v.altura = getAltura(v);
 
     	if(getBalance(v) == -2){
     		if(getBalance(v.derecho)==1){
@@ -84,22 +90,27 @@ public class ArbolAVL <T extends Comparable<T>> extends ArbolBinarioBusqueda<T>{
     }
 
     @Override
-    public boolean elimina(T elemento){
-        if (busca(elemento) != null) {
-        }
-        return false;
-        }
+  //  public boolean elimina(T elemento){
+    //    if (busca(elemento) != null) {
+    //    	if(busca(elemento).izquierdo == null)
+   //     }
+    //    return false;
+    //    }
 
     @Override
     protected void giraIzquierda(Vertice v){
         // Aquí va su código.
-        super.giraIzquierda(v);   //actualizar altura de v y del padre
+        super.giraIzquierda(v);  //actualizar altura de v y del padre
+        actualizaAltura(v);
+        actualizaAltura(v.padre);
     }
 
     @Override
     protected void giraDerecha(Vertice v){
         // Aquí va su código.
         super.giraDerecha(v);  //actualizar altura de v y del padre
+        actualizaAltura(v);
+        actualizaAltura(v.padre);
     }
 
 }
