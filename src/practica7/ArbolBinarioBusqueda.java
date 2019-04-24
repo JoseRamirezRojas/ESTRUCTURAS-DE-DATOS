@@ -1,7 +1,5 @@
 package practica7;
 
-import practica6.ArbolBinario;
-
 /**
  * Ramírez Rojas José David
  * Cruz Carmona Uriel
@@ -107,44 +105,73 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
     @Override
     public boolean elimina(T elemento) {
         // Aquí va su código.
-        if (busca(elemento) != null) {
+        Vertice v=busca(elemento);
+        if (v!= null) {
 
             //caso 1: Que no tenga hijos el elemento a eliminar
-            if (busca(elemento).izquierdo == null && busca(elemento).derecho == null) {
-                busca(elemento).padre = null;
+            if (v.izquierdo == null && v.derecho == null) {
+                v.padre = null;
                 elementos--;
+                if(raiz==v)
+                    raiz=null;
                 return true;
             }
 
             //caso 2: El vértice a eliminar tiene un solo hijo
-            if (busca(elemento).derecho == null && busca(elemento).izquierdo != null) {
-                busca(elemento).izquierdo.padre = busca(elemento).padre;
-                busca(elemento).padre.izquierdo = busca(elemento).izquierdo;
+            if (v.derecho == null && v.izquierdo != null) {
+                v.izquierdo.padre = v.padre;
+                v.padre.izquierdo = v.izquierdo;
+                if(raiz==v)
+                    raiz=v.izquierdo;
                 elementos--;
                 return true;
             }
-            if (busca(elemento).izquierdo == null && busca(elemento).derecho != null) {
-                busca(elemento).derecho.padre = busca(elemento).padre;
-                busca(elemento).padre.derecho = busca(elemento).derecho;
+            if (v.izquierdo == null && v.derecho != null) {
+                v.derecho.padre = v.padre;
+                v.padre.derecho = v.derecho;
+                if(raiz==v)
+                    raiz=v.derecho;
                 elementos--;
                 return true;
             }
 
             //caso 3: El vértice a eliminar tiene 2 hijos
             if (busca(elemento).derecho != null && busca(elemento).izquierdo != null) {
-                Vertice aux = busca(elemento).derecho;
+                Vertice aux = v.derecho;
                 Vertice masIzquierdo = buscaIzquierdo(aux);
-                busca(elemento).elemento=masIzquierdo.elemento;
+                Vertice aux2=v;
+//                v.elemento=masIzquierdo.elemento;
                 if (masIzquierdo.derecho == null) {
                     //caso 1 en caso 3
-                    masIzquierdo.padre.izquierdo=null;
-                    masIzquierdo.padre=null;
+                    if(raiz!=v) {
+                        if (v.padre.derecho == v)
+                            v.padre.derecho.elemento = masIzquierdo.elemento;
+                        else
+                            v.padre.izquierdo.elemento = masIzquierdo.elemento;
+                        aux2.elemento = masIzquierdo.elemento;
+                    }
+                    else {
+                        v.elemento = masIzquierdo.elemento;
+                        masIzquierdo.padre.izquierdo = null;
+                    }
                     elementos--;
                     return true;
                 }
 
                 if (masIzquierdo.derecho != null) {
                     //caso 2 en caso 3
+
+                    if(raiz!=v) {
+                        if (v.padre.derecho == v)
+                            v.padre.derecho.elemento = masIzquierdo.elemento;
+                        else
+                            v.padre.izquierdo.elemento = masIzquierdo.elemento;
+                        aux2.elemento = masIzquierdo.elemento;
+                    }
+                    else {
+                        v.elemento = masIzquierdo.elemento;
+                        masIzquierdo.padre.izquierdo = null;
+                    }
                     masIzquierdo.derecho.padre=masIzquierdo.padre;
                     masIzquierdo.padre.izquierdo=masIzquierdo.derecho;
                     elementos--;
@@ -158,7 +185,7 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
     }
 
     public static void main (String[]args){
-        Character [] arr= {'k','h','b','a','f','c','x','n','d','e'};
+        Character [] arr= {'k','h','i','b','a','f','c','x','n','d','e','p','q','r'};
         ArbolBinarioBusqueda<Character> arbol=new ArbolBinarioBusqueda<>(arr);
 
         //imprimimos bfs del árbol recién construido
@@ -176,7 +203,7 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
 
         //eliminamos 'b' e imprimimos
         System.out.println();
-        arbol.elimina('b');
+        arbol.elimina('k');
         arbol.bfs(f -> System.out.println(f));
     }
 }
