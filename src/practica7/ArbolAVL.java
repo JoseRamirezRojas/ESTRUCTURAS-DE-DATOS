@@ -13,6 +13,7 @@ public class ArbolAVL <T extends Comparable<T>> extends ArbolBinarioBusqueda<T>{
 
         public VerticeAVL(T elemento){
             super(elemento);
+            altura =0;
         }
     }
 
@@ -90,12 +91,55 @@ public class ArbolAVL <T extends Comparable<T>> extends ArbolBinarioBusqueda<T>{
     }
 
     @Override
-  //  public boolean elimina(T elemento){
-    //    if (busca(elemento) != null) {
-    //    	if(busca(elemento).izquierdo == null)
-   //     }
-    //    return false;
-    //    }
+    public boolean elimina(T elemento){
+        Vertice v = busca(elemento);
+        if (busca(elemento) != null) {
+        	 Vertice aux = v.derecho;
+             Vertice masIzquierdo = buscaIzquierdo(aux);
+             Vertice aux2=v;
+              if (masIzquierdo.derecho == null) {
+                    //caso 1 en caso 3
+                    if(raiz!=v) {
+                        if (v.padre.derecho == v)
+                            v.padre.derecho.elemento = masIzquierdo.elemento;
+                        else
+                            v.padre.izquierdo.elemento = masIzquierdo.elemento;
+                        aux2.elemento = masIzquierdo.elemento;
+                    }
+                    else {
+                        v.elemento = masIzquierdo.elemento;
+                        masIzquierdo.padre.izquierdo = null;
+                    }
+                    balancea(v.padre);
+                    elementos--;
+                    return true;
+                }
+
+                if (masIzquierdo.derecho != null) {
+                    //caso 2 en caso 3
+
+                    if(raiz!=v) {
+                        if (v.padre.derecho == v)
+                            v.padre.derecho.elemento = masIzquierdo.elemento;
+                        else
+                            v.padre.izquierdo.elemento = masIzquierdo.elemento;
+                        aux2.elemento = masIzquierdo.elemento;
+                    }
+                    else {
+                        v.elemento = masIzquierdo.elemento;
+                        masIzquierdo.padre.izquierdo = null;
+                    }
+                    masIzquierdo.derecho.padre=masIzquierdo.padre;
+                    masIzquierdo.padre.izquierdo=masIzquierdo.derecho;
+                    balancea(v.padre);
+                    elementos--;
+                    return true;
+                }
+
+
+        }
+        return false;
+ 	}
 
     @Override
     protected void giraIzquierda(Vertice v){
