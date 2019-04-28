@@ -74,12 +74,20 @@ public class Cadena implements Comparable<Cadena>{
             throw new IllegalArgumentException();
 
         String cadena1 = Normalizer.normalize(this.cadena,Normalizer.Form.NFKD),
-               cadena2 = Normalizer.normalize(cadena.getCadena(),Normalizer.Form.NFKD);
+                cadena2 = Normalizer.normalize(cadena.getCadena(),Normalizer.Form.NFKD);
         cadena1 = cadena1.replaceAll("[^a-zA-Z0-9]", "");
         cadena2 = cadena2.replaceAll("[^a-zA-Z_0-9]", "");
         cadena1 = cadena1.toLowerCase();
         cadena2 = cadena2.toLowerCase();
         return cadena1.compareTo(cadena2);
+    }
+
+    /**
+     * Devuelve un String que es la representacion de la Cadena.
+     * @return la cadena interna de Cadena.
+     */
+    @Override public String toString() {
+        return cadena;
     }
 
     /**

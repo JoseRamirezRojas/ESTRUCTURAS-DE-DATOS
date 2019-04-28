@@ -218,21 +218,4 @@ public class ArbolAVL <T extends Comparable<T>> extends ArbolBinarioBusqueda<T> 
         actualizaAltura(v);
         actualizaAltura(v.izquierdo);
     }
-
-    public static void main(String[] args) {
-        Character[] arr = {'k', 'h', 'b','a','f','c','x', 'n', 'd', 'e'};
-//        'k', 'h', 'b', 'a', 'f', 'c', 'x', 'n', 'd', 'e'
-        ArbolAVL<Character> arbol = new ArbolAVL<>(arr);
-//        arbol.imprimeRojinegroColorInOrder();
-        arbol.bfs(f -> System.out.println(f));
-        System.out.println();
-        arbol.dfs(1,f->System.out.println(f));
-        System.out.println();
-        System.out.println(arbol.elimina('e'));
-        arbol.bfs(f -> System.out.println(f));
-        System.out.println(arbol.elimina('n'));
-        arbol.bfs(f -> System.out.println(f));
-        System.out.println(arbol.elimina('b'));
-        arbol.bfs(f -> System.out.println(f));
-    }
 }

@@ -35,9 +35,9 @@ public class LectorArchivos {
 
 		try {
 			lector = new BufferedReader(new InputStreamReader
-			        (new FileInputStream(archivo), StandardCharsets.UTF_8));
-		} 
-		catch (FileNotFoundException fnfe) {lector = null;} 
+					(new FileInputStream(archivo), StandardCharsets.UTF_8));
+		}
+		catch (FileNotFoundException fnfe) {lector = null;}
 		catch (SecurityException se) {lector = null;}
 	}
 
@@ -51,7 +51,7 @@ public class LectorArchivos {
 			throw new IllegalArgumentException();
 
 		lector = new BufferedReader(new InputStreamReader(entrada,StandardCharsets.UTF_8));
-	} 
+	}
 
 	/**
 	 * Nos dice si el archivo esta listo para leerse.
@@ -59,7 +59,7 @@ public class LectorArchivos {
 	 *		   <code>false</code> si no lo esta.
 	 */
 	public boolean estaListo() {
-		try {return lector.ready();} 
+		try {return lector.ready();}
 		catch (IOException ioe) {return false;}
 	}
 
@@ -72,7 +72,7 @@ public class LectorArchivos {
 		if (lector == null)
 			throw new NoSuchElementException();
 
-		try {return lector.readLine();} 
+		try {return lector.readLine();}
 		catch (IOException ioe) {lector = null; return null;}
 	}
 

@@ -184,27 +184,4 @@ public class ArbolBinarioBusqueda<T extends Comparable<T>> extends ArbolBinario<
         }
         return false;
     }
-
-    public static void main (String[]args){
-        Character [] arr= {'k','h','i','b','a','f','c','x','n','d','e','p','q','r'};
-        ArbolBinarioBusqueda<Character> arbol=new ArbolBinarioBusqueda<>(arr);
-
-        //imprimimos bfs del árbol recién construido
-        arbol.bfs(f -> System.out.println(f));
-
-        // giramos la raíz e imprimimos
-        System.out.println();
-        arbol.giraDerecha(arbol.busca('f'));
-        arbol.bfs(f -> System.out.println(f));
-
-        //agregamos 'g' e imprimimos
-        System.out.println();
-        arbol.agrega('g');
-        arbol.bfs(f -> System.out.println(f));
-
-        //eliminamos 'b' e imprimimos
-        System.out.println();
-        System.out.println(arbol.elimina('r'));
-        arbol.bfs(f -> System.out.println(f));
-    }
 }

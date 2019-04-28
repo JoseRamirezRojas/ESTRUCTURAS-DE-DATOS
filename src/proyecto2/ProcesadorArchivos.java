@@ -4,15 +4,19 @@ import java.io.File;
 import java.io.InputStream;
 import java.util.StringTokenizer;
 
+/**
+ * Clase que lee una serie de archivos y creo un objeto Archivo por cada archivo leido.
+ */
 public class ProcesadorArchivos {
 
     /** Lector de Archivo */
-    LectorArchivos lector;
+    private LectorArchivos lector;
 
-    /** Cola de ficheros */
-    Cola<File> ficheros;
+    /** Lista De archivos */
+    private Lista<Archivo> archivos;
 
     public ProcesadorArchivos(InputStream in) {
+        archivos = new Lista<Archivo>();
         lector = new LectorArchivos(in);
         String linea;
         while ((linea = lector.leer()) != null) {
@@ -24,14 +28,23 @@ public class ProcesadorArchivos {
 
                 File archivo = new File(palabra);
 
-                if (!archivo.exists() || !archivo.isFile())
-                    throw new IllegalArgumentException();
-
-                ficheros.mete(archivo);
+                archivos.agrega(new Archivo(archivo));
             }
         }
         lector.cerrar();
     }
 
-
+    public Lista<Archivo> procesaArchivos() {
+        for (Archivo archivo : archivos) {
+            lector = new LectorArchivos(archivo.getArchivo());
+            String linea;
+            while ((linea = lector.leer())!= null) {
+                StringTokenizer st = new StringTokenizer(linea);
+                while (st.hasMoreTokens())
+                    //System.out.println(st.nextToken());
+                    archivo.agregaPalabra(new Cadena(st.nextToken()));
+            }
+        }
+        return archivos;
+    }
 }

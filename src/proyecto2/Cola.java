@@ -116,23 +116,4 @@ public class Cola<T> implements Iterable<T>{
     public Iterator<T> iterator(){
         return cola.iterator();
     }
-
-
-    public static void main(String[] args) {
-        String [] pruebaLista={"1er elemento","2do elem","3er elem"};
-        Cola pruebaCola=new Cola(pruebaLista);
-        Cola colaVacia=new Cola();
-        System.out.println(pruebaCola.esVacia());
-        System.out.println(colaVacia.esVacia());
-        System.out.println(pruebaCola.mira());
-        System.out.println(pruebaCola.saca());
-        pruebaCola.mete("enq 1");
-        pruebaCola.mete("enq 2");
-        System.out.println(pruebaCola.toString());
-//        pruebaCola.cola.copia().imprimeElementos();
-        String[] array={"2do elem","3er elem","enq 1","enq 2"};
-        Cola copiaCola= new Cola(array);
-        System.out.println(pruebaCola.equals(copiaCola));
-        System.out.println(pruebaCola.equals(colaVacia));
-    }
 }

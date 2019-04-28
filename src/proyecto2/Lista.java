@@ -15,7 +15,7 @@ import java.util.NoSuchElementException;
  *
  * @param <T> El tipo de los elementos de la lista.
  */
-public class Lista<T>{
+public class Lista<T> implements Iterable<T>{
 
     /* Clase interna privada para nodos. */
     private class Nodo {
@@ -583,38 +583,4 @@ public class Lista<T>{
         return lista.mergeSort((a, b) -> a.compareTo(b));
     }
 
-    /**
-     * Busca un elemento en la lista ordenada, usando el comparador recibido. El
-     * método supone que la lista está ordenada usando el mismo comparador.
-     * @param elemento el elemento a buscar.
-     * @param comparador el comparador con el que la lista está ordenada.
-     * @return <tt>true</tt> si el elemento está contenido en la lista,
-     *         <tt>false</tt> en otro caso.
-     */
-    public boolean busquedaLineal(T elemento, Comparator<T> comparador) {
-        // Aquí va su código.
-        if (elemento == null)
-            throw new IllegalArgumentException();
-        if (esVacia())
-            return false;
-
-        for (Nodo nodoAuxiliar = cabeza; nodoAuxiliar != null; nodoAuxiliar = nodoAuxiliar.siguiente)
-            if (comparador.compare(nodoAuxiliar.elemento,elemento) == 0)
-                return true;
-        return false;
-    }
-
-    /**
-     * Busca un elemento en una lista ordenada. La lista recibida tiene que
-     * contener nada más elementos que implementan la interfaz {@link
-     * Comparable}, y se da por hecho que está ordenada.
-     * @param <T> tipo del que puede ser la lista.
-     * @param lista la lista donde se buscará.
-     * @param elemento el elemento a buscar.
-     * @return <tt>true</tt> si el elemento está contenido en la lista,
-     *         <tt>false</tt> en otro caso.
-     */
-    public static <T extends Comparable<T>> boolean busquedaLineal(Lista<T> lista, T elemento) {
-        return lista.busquedaLineal(elemento, (a, b) -> a.compareTo(b));
-    }
 }
