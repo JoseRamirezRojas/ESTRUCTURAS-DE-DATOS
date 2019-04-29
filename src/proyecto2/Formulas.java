@@ -22,7 +22,7 @@ public class Formulas {
      * Calcula la frecuencia inversa del documento.
      * @param docs  Lista de archivos
      * @param doc   Archivo actual de la busqueda.
-     * @param term  Término actual de busqueda.
+     * @param term  Termino actual de busqueda.
      * @return      IDF
      */
     public static double calcularIDF(Lista<Archivo> docs,Archivo doc, String term) {
@@ -38,7 +38,7 @@ public class Formulas {
     }
 
     /**
-     * similitud coseno
+     * Similitud coseno
      * @param docs
      * @param terms
      */

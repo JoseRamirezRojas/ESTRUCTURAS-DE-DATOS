@@ -8,11 +8,11 @@ public class Archivo implements Comparable<Archivo>{
     /** Archivo interno */
     private File archivo;
 
-    /** Colección de palabras en un archivo */
+    /** Coleccion de palabras en un archivo */
     private ArbolAVL<Cadena> palabras;
 
-    /** Valor TF del archivo */
-    private double tf;
+    /** Valor de la similitud del archivo  con una busqueda*/
+    private double sim  ;
 
     private Archivo() {}
 
@@ -22,31 +22,37 @@ public class Archivo implements Comparable<Archivo>{
 
         this.archivo = archivo;
         palabras = new ArbolAVL<Cadena>();
+
+        sim = -1;
     }
 
-    public double getTF() {
-        return tf;
+    public double getSim() {
+        return sim;
     }
 
-    public void setTF(double tf) {
-        this.tf = tf;
+    public void setSim(double sim) {
+        this.sim = sim;
     }
 
     public File getArchivo() {
         return archivo;
     }
 
-    protected void agregaPalabra(Cadena palabra) {
+    public void agregaPalabra(Cadena palabra) {
         palabras.agrega(palabra);
     }
 
-    @Override public int compareTo(Archivo archivo) {
-        double tfArchivo = archivo.getTF();
+    public ArbolAVL<Cadena> getPalabras() {
+        return palabras;
+    }
 
-        if (tf > tfArchivo)
+    @Override public int compareTo(Archivo archivo) {
+        double tfArchivo = archivo.getSim();
+
+        if (sim > tfArchivo)
             return 1;
 
-        if (tf < tfArchivo)
+        if (sim < tfArchivo)
             return -1;
 
         return 0;
