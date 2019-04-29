@@ -1,8 +1,6 @@
 package proyecto2;
 
-import java.io.BufferedReader;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.Scanner;
 
 /**
@@ -22,12 +20,10 @@ public class PEDROOGLE {
 
     public static void main(String[] args) throws InterruptedException {
 
-        InputStreamReader isr = new InputStreamReader(System.in);
-        BufferedReader br = new BufferedReader(isr);
         Lista<Archivo> archivoLista = new Lista<>();
         Scanner entrada = new Scanner(System.in);
         Animacion a = new Animacion();
-        int opcion=0;
+        int opcion;
         boolean ejecutar=true;
         LectorArchivos lector;
         ProcesadorArchivos procesador;
@@ -49,14 +45,7 @@ public class PEDROOGLE {
         System.out.println("\t\t\t\t\t\t\t\t Actualmente buscando en " +archivoLista.getLongitud()+
                 " documentos.");
         do {
-            try
-            {
-                opcion = Integer.parseInt(br.readLine());
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-            }
+            opcion = entrada.nextInt();
             switch (opcion) {
                 case 1:
                     if(archivoLista.getLongitud()<=0){
