@@ -1,4 +1,4 @@
-package ciencias.edd.proyecto2;
+package proyecto2;
 
 import java.io.File;
 import java.io.InputStream;
@@ -36,7 +36,7 @@ public class ProcesadorArchivos {
     }
 
     public Lista<Archivo> procesaArchivos() {
-        for (Archivo archivo : archivos) {                                  
+        for (Archivo archivo : archivos) {
             lector = new LectorArchivos(archivo.getArchivo());
             String linea;
             while ((linea = lector.leer())!= null) {

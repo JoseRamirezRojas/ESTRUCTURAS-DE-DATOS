@@ -1,4 +1,4 @@
-package ciencias.edd.proyecto2;
+package proyecto2;
 
 import java.io.InputStream;
 import java.util.Scanner;
@@ -34,9 +34,9 @@ public class PEDROOGLE {
             System.out.println("|                     |");
             System.out.println("|                     |");
             System.out.println("|  " + ANSI_YELLOW + "P" + ANSI_RESET + " " + ANSI_PURPLE + "E" + ANSI_RESET + " "
-                + ANSI_GREEN + "D" + ANSI_RESET + " " + ANSI_CYAN + "R" + ANSI_RESET + " " + ANSI_RED + "O " + ANSI_YELLOW +
-                "O" + ANSI_RESET + " " + ANSI_CYAN + "G" + ANSI_RESET + " " + ANSI_GREEN + "L" + ANSI_RESET + " "
-                + ANSI_RED + "E" + ANSI_RESET + "  |");
+                    + ANSI_GREEN + "D" + ANSI_RESET + " " + ANSI_CYAN + "R" + ANSI_RESET + " " + ANSI_RED + "O " + ANSI_YELLOW +
+                    "O" + ANSI_RESET + " " + ANSI_CYAN + "G" + ANSI_RESET + " " + ANSI_GREEN + "L" + ANSI_RESET + " "
+                    + ANSI_RED + "E" + ANSI_RESET + "  |");
             System.out.println("|                     |");
             System.out.println("|_____________________|");
             Thread.sleep(500);
@@ -45,7 +45,7 @@ public class PEDROOGLE {
             System.out.println("\t| 2)Agregar un documento .txt");
             System.out.println("\t| 3)Salir del programa");
             System.out.println("\t\t\t\t\t\t\t\t Actualmente buscando en " +archivoLista.getLongitud()+
-                " documentos.");
+                    " documentos.");
 
             entrada = new Scanner(System.in);
             opcion = entrada.nextInt();
@@ -60,7 +60,7 @@ public class PEDROOGLE {
                 case 2:
                     Cola<String> cola = new Cola<String>();
                     System.out.println("\nPor favor ingresa la ruta del archivo en tu equipo :");
-                    
+
                     while (entrada.hasNext()) {
                         cola.mete(entrada.next());
                     }
@@ -81,7 +81,7 @@ public class PEDROOGLE {
                     System.out.println("\t| 2)Agregar un documento .txt");
                     System.out.println("\t| 3)Salir del programa");
                     System.out.println("\t\t\t\t\t\t\t Actualmente buscando en " +archivoLista.getLongitud()+
-                        " archivos.");
+                            " archivos.");
 
             }
             a.limpiarPantalla();
