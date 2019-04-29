@@ -3,9 +3,9 @@ package proyecto2;
 public class Formulas {
 
     /**
-     * Calcula la frecuencia del término en un documento.
+     * Calcula la frecuencia del termino en un documento.
      * @param doc   Archivo actual de la busqueda.
-     * @param term  Término actual de busqueda.
+     * @param term  Termino actual de busqueda.
      * @return      TF
      */
     public static double calcularTF(Archivo doc, String term) {
