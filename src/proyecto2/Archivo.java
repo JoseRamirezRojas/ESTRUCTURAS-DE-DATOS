@@ -5,14 +5,17 @@ import java.lang.Comparable;
 
 public class Archivo implements Comparable<Archivo>{
 
-    /** Archivo interno */
+    /* Archivo interno */
     private File archivo;
 
-    /** Coleccion de palabras en un archivo */
+    /* Coleccion de palabras en un archivo */
     private ArbolAVL<Cadena> palabras;
 
-    /** Valor de la similitud del archivo  con una busqueda*/
+    /* Valor de la similitud del archivo  con una busqueda*/
     private double sim  ;
+
+    /* ruta en String del archivo*/
+//    private String ruta;
 
     private Archivo() {}
 
@@ -47,12 +50,12 @@ public class Archivo implements Comparable<Archivo>{
     }
 
     @Override public int compareTo(Archivo archivo) {
-        double tfArchivo = archivo.getSim();
+        double simArchivo = archivo.getSim();
 
-        if (sim > tfArchivo)
+        if (sim > simArchivo)
             return 1;
 
-        if (sim < tfArchivo)
+        if (sim < simArchivo)
             return -1;
 
         return 0;

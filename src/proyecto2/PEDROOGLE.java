@@ -41,7 +41,7 @@ public class PEDROOGLE {
             System.out.println("|_____________________|");
             Thread.sleep(500);
             System.out.println("ESCOGE LA ACCION A REALIZAR:");
-            System.out.println("\n\t| 1)Ingresar una busqueda");
+            System.out.println("\n\t| 1)Ingresar una búsqueda");
             System.out.println("\t| 2)Agregar un documento .txt");
             System.out.println("\t| 3)Salir del programa");
             System.out.println("\t\t\t\t\t\t\t\t Actualmente buscando en " +archivoLista.getLongitud()+
@@ -52,9 +52,20 @@ public class PEDROOGLE {
             a.limpiarPantalla();
             switch (opcion) {
                 case 1:
-                    if(archivoLista.getLongitud()<=0){
+                    if(archivoLista.getLongitud()<=0) {
                         System.out.println("\nNo hay archivos sobre los cuales realizar una busqueda.");
                         opcion = 2;
+                    } else {
+                        Cola<String> cola = new Cola<String>();
+                        System.out.println("");
+
+                        while (entrada.hasNext()) {
+                            cola.mete(entrada.next());
+                        }
+
+                        Formulas form = new Formulas();
+                        form.rankeaDocumentos(archivoLista,cola);
+                        break;
                     }
 
                 case 2:
@@ -76,13 +87,10 @@ public class PEDROOGLE {
                     break;
 
                 default:
-                    System.out.println("\nERROR.Selecciona una opcion correcta:");
-                    System.out.println("\n\t| 1)Ingresar una busqueda");
-                    System.out.println("\t| 2)Agregar un documento .txt");
-                    System.out.println("\t| 3)Salir del programa");
-                    System.out.println("\t\t\t\t\t\t\t Actualmente buscando en " +archivoLista.getLongitud()+
-                            " archivos.");
-
+                    System.out.println("\nERROR.Selecciona una opción correcta:");
+                   /* try {
+                        //Esperar
+                    } catch (); */
             }
             a.limpiarPantalla();
         }

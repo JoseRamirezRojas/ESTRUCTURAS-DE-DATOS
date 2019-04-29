@@ -121,6 +121,31 @@ public class ArbolAVL <T extends Comparable<T>> extends ArbolBinarioBusqueda<T> 
         return v.concurrencia;
     }
 
+    public int NoPalabras() {
+        if (raiz == null)
+            return 0;
+
+        Cola<Vertice> cola = new Cola<Vertice>();
+        Cola<VerticeAVL> palabras = new Cola<VerticeAVL>();
+        Vertice vertice = null;
+        cola.mete(raiz);
+
+        while (!cola.esVacia()) {
+            vertice = cola.saca();
+            palabras.mete((VerticeAVL) vertice);
+            if (vertice.izquierdo != null)
+                cola.mete(vertice.izquierdo);
+            if (vertice.derecho != null)
+                cola.mete(vertice.derecho);
+        }
+
+        int noPalabras = 0;
+        for (VerticeAVL v : palabras)
+            noPalabras += v.concurrencia;
+
+        return noPalabras;
+    }
+
     @Override
     public boolean elimina(T elemento){
         Vertice v = busca(elemento);
