@@ -1,4 +1,4 @@
-package proyecto2;
+package ciencias.edd.proyecto2;
 
 import java.io.File;
 import java.io.InputStream;
@@ -9,39 +9,39 @@ import java.util.StringTokenizer;
  */
 public class ProcesadorArchivos {
 
-    /** Lector de Archivo */
+    /** Lector de archivos .txt */
     private LectorArchivos lector;
 
     /** Lista De archivos */
     private Lista<Archivo> archivos;
 
-    public ProcesadorArchivos(InputStream in) {
-        archivos = new Lista<Archivo>();
-        lector = new LectorArchivos(in);
-        String linea;
-        while ((linea = lector.leer()) != null) {
-            StringTokenizer st = new StringTokenizer(linea.trim());
-            while (st.hasMoreTokens()) {
-                String palabra = st.nextToken();
-                if (!palabra.endsWith(".txt"))
-                    throw new IllegalArgumentException();
+    public ProcesadorArchivos(Iterable<String> archivos) {
+        this.archivos = new Lista<Archivo>();
+        for (String ruta : archivos) {
 
-                File archivo = new File(palabra);
-
-                archivos.agrega(new Archivo(archivo));
+            if (!ruta.endsWith(".txt")) {
+                System.out.println("ERROR: Solo se puede leer archivos con extension .txt");
+                return;
             }
+
+            File archivo = new File(ruta);
+
+            if (!archivo.exists() || !archivo.isFile()) {
+                System.out.println("Error: no se encontro archivo");
+                return;
+            }
+
+            this.archivos.agrega(new Archivo(archivo));
         }
-        lector.cerrar();
     }
 
     public Lista<Archivo> procesaArchivos() {
-        for (Archivo archivo : archivos) {
+        for (Archivo archivo : archivos) {                                  
             lector = new LectorArchivos(archivo.getArchivo());
             String linea;
             while ((linea = lector.leer())!= null) {
                 StringTokenizer st = new StringTokenizer(linea);
                 while (st.hasMoreTokens())
-                    //System.out.println(st.nextToken());
                     archivo.agregaPalabra(new Cadena(st.nextToken()));
             }
         }
