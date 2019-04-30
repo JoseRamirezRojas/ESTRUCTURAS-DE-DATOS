@@ -25,16 +25,16 @@ public class Formulas {
      * @param term  Termino actual de busqueda.
      * @return      IDF
      */
-    public double calcularIDF(Lista<Archivo> docs,Archivo doc, String term) {
-        ArbolAVL<Cadena> palabras = doc.getPalabras();
-        int concurrencias = palabras.concurrencia(new Cadena(term));
-        int n = docs.getLongitud()+1;
-        int nt = 0 ;
-        for (Archivo d : docs) {
-            if (calcularTF(d,term) > 0)
-                nt++;
-        }
-        return Math.log(n/nt)/Math.log(2);
+    public double calcularIDF(Lista<Archivo> docs, String term) {
+        int nt = 0;
+
+	for(Archivo doc : docs)
+		if (calcularTF(doc,term) > 0)
+			nt++;
+	if (nt == 0)
+		return 0;
+
+        return Math.log((docs.getLongitud()+1)/nt)/Math.log(2);
     }
 
     /**
@@ -44,26 +44,20 @@ public class Formulas {
      * @param terms     Terminos de la busqueda ingresada
      */
     public double sim(Lista<Archivo> docs,Archivo doc, Cola<String> terms) {
-        double sumaProdDeTerminos=0;
-        int aux = docs.getLongitud();
-//        int[] similitudes;
-//        similitudes.length=aux;
+        double sumaProdDeTerminos = 0;
         for (String term : terms) {
-            for (Archivo d :  docs) {
-                double prodTfIdf=(this.calcularIDF(docs,doc,term))*(this.calcularTF(doc,term));
-                sumaProdDeTerminos=sumaProdDeTerminos+prodTfIdf;
-                return (sumaProdDeTerminos/doc.getPalabras().NoPalabras());
-            }
+		sumaProdDeTerminos += calcularTF(doc,term)*calcularIDF(docs,term);
         }
-        return 0;
+        return sumaProdDeTerminos/doc.getPalabras().NoPalabras();
     }
 
     public Lista<Archivo> rankeaDocumentos(Lista<Archivo> docs,Cola<String> terms){
-        Lista<Archivo> documentosOrdenados;
-        for(Archivo doc:docs){
-            doc.setSim(this.sim(docs,doc,terms));
-        }
-        documentosOrdenados=docs.mergeSort(docs);
+        Lista<Archivo> documentosOrdenados = null;
+
+        for(Archivo doc : docs)
+            doc.setSim(sim(docs,doc,terms));
+
+        documentosOrdenados = docs.mergeSort((a, b) -> a.compareTo(b));
         return documentosOrdenados;
     }
 }

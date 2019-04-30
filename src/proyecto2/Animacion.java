@@ -6,4 +6,10 @@ public class Animacion {
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
+
+    public void retrasarImpresion(int tiempo) {
+      try {
+        Thread.sleep(tiempo);
+      } catch (InterruptedException ie) {}
+    }
 }

@@ -20,14 +20,20 @@ public class ProcesadorArchivos {
         for (String ruta : archivos) {
 
             if (!ruta.endsWith(".txt")) {
-                System.out.println("ERROR: Solo se puede leer archivos con extension .txt");
+                System.out.println("\n\nERROR: Solo se puede leer archivos con extension .txt");
+                try {
+                  Thread.sleep(1700);
+                } catch (InterruptedException ie) {}
                 return;
             }
 
             File archivo = new File(ruta);
 
             if (!archivo.exists() || !archivo.isFile()) {
-                System.out.println("Error: no se encontro archivo");
+                System.out.println("ERROR: no se encontro archivo");
+                try {
+                  Thread.sleep(500);
+                } catch (InterruptedException ie) {}
                 return;
             }
 

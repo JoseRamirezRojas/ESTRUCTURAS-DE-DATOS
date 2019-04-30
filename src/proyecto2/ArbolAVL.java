@@ -117,8 +117,14 @@ public class ArbolAVL <T extends Comparable<T>> extends ArbolBinarioBusqueda<T> 
     }
 
     public int concurrencia(T elemento) {
-        VerticeAVL v = (VerticeAVL) busca(elemento);
-        return v.concurrencia;
+        Vertice v = busca(elemento);
+
+	if (v == null)
+		return 0;
+
+	VerticeAVL vertice = (VerticeAVL) v;
+
+        return vertice.concurrencia;
     }
 
     public int NoPalabras() {
