@@ -70,13 +70,17 @@ public class Monticulo{
      * @throws IllegalStateException cuando el montículo está vacío.
      */
     public int elimina(){
-
         //falta código
-
         if(esVacio())
             throw new IllegalStateException();
-
         //regresar el elemento que estaba en la raíz del montículo.
+        antiguaRaiz = elementos[0];
+        elementos[ultimoIndice] = elementos[0];
+        ultimoIndice --;
+        acomodaHaciaAbajo(elementos[0]);
+        return antiguaRaiz;
+
+
 
     }
 
@@ -108,7 +112,7 @@ public class Monticulo{
      * @return Número de elementos del montículo.
      */
     public int getTamano(){
-        return elementos.length;
+        return ultimoIndice+1;
     }
 
     /**
@@ -117,5 +121,14 @@ public class Monticulo{
      */
     public void agrega(int i){
         // Aquí va su código.
+        if(ultimoIndice+1 == this.elementos.length){
+            int nuevoarreglo [] = new int [elementos.length*2];
+            for(int i =0; i<elementos.length; i++){
+                nuevoarreglo [i] = elementos [i];
+            }  
+
+        }
+
+
     }
 }
