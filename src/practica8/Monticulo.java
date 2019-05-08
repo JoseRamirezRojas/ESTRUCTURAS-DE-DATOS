@@ -38,6 +38,7 @@ public class Monticulo{
     public Monticulo(Comparator<Integer> comparador){
         ultimoIndice=-1;
         elementos=new int[100];
+		this.comparador=comparador;
     }
 
     /**
@@ -63,9 +64,16 @@ public class Monticulo{
      * @param comparador Comparator con el que se organizará el heap.
      */
     public Monticulo(int[] elementos, Comparator<Integer> comparador){
+        this.comparador=comparador;
+        for(int i=0;i<=elementos.length;i++){
+            this.elementos[i]=elementos[i];
+        }
+        ultimoIndice=this.elementos.length-1;
         int n;
-        for(n=(elementos.length/2)-1;n>=0;n--){
-            //falta código
+        if(this.elementos.length==0)
+            return;
+        for(n=(this.elementos.length/2)-1;n>=0;n--){
+            acomodaHaciaAbajo(n);
         }
     }
 
@@ -76,14 +84,11 @@ public class Monticulo{
      * @throws IllegalStateException cuando el montículo está vacío.
      */
     public int elimina(){
-
-        //falta código
-
-        if(esVacio())
-            throw new IllegalStateException();
-
-        //regresar el elemento que estaba en la raíz del montículo.
-
+        int antiguaRaiz = elementos[0];
+        elementos[ultimoIndice] = elementos[0];
+        ultimoIndice --;
+        acomodaHaciaAbajo(elementos[0]);
+        return antiguaRaiz;
     }
 
     /**
@@ -108,7 +113,8 @@ public class Monticulo{
      *          <code>false</code>  En otro caso.
      */
     public boolean esVacio(){
-        // Aquí va su código.
+         if(ultimoIndice==-1)
+            return true;
         return false;
     }
 
@@ -130,10 +136,10 @@ public class Monticulo{
             for(int j = 0; j< elementos.length; j++){
                 nuevoArreglo[j] = elementos[j];
             }
-
+            this.elementos=nuevoArreglo;
         }
         ultimoIndice++;
-        nuevoArreglo[ultimoIndice] = i;
+        elementos[ultimoIndice] = i;
         acomodaHaciaArriba(ultimoIndice);
     }
 
@@ -166,6 +172,25 @@ public class Monticulo{
         if (aux!=n){
             intercambiaHeap(n,aux);
             acomodaHaciaAbajo(aux);
+        }
+
+    }
+	
+	/**
+     * Algoritmo auxiliar heapify-up.
+     * @param n     Posición del arreglo al que estamos acomodando.
+     */
+    private void acomodaHaciaArriba(int n){
+        int posicionPadre;
+        if(n==0)
+            posicionPadre = 0;
+        else
+            posicionPadre=(n-1)/2;
+
+        if(n>0 && (comparador.compare(elementos[posicionPadre],elementos[n])==1))
+        {
+            intercambiaHeap(n, posicionPadre);
+            acomodaHaciaArriba(posicionPadre);
         }
 
     }
