@@ -117,7 +117,7 @@ public class Monticulo{
      * @return Número de elementos del montículo.
      */
     public int getTamano(){
-        return elementos.length;
+        return ultimoIndice+1;
     }
 
     /**
@@ -125,9 +125,16 @@ public class Monticulo{
      * @param i Elemento a agregar al montículo.
      */
     public void agrega(int i){
-        if(ultimoIndice==elementos.length){
+        if(ultimoIndice +1 == elementos.length){
+            int nuevoArreglo [] = new int [elementos.length *2];
+            for(int j = 0; j< elementos.length; j++){
+                nuevoArreglo[j] = elementos[j];
+            }
 
         }
+        ultimoIndice++;
+        nuevoArreglo[ultimoIndice] = i;
+        acomodaHaciaArriba(ultimoIndice);
     }
 
     /**
