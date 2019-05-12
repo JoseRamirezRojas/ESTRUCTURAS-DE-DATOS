@@ -1,5 +1,4 @@
 package practica8;
-import java.lang.reflect.Array;
 import java.util.Comparator;
 
 
@@ -38,7 +37,7 @@ public class Monticulo{
     public Monticulo(Comparator<Integer> comparador){
         ultimoIndice=-1;
         elementos=new int[100];
-		this.comparador=comparador;
+        this.comparador=comparador;
     }
 
     /**
@@ -46,14 +45,23 @@ public class Monticulo{
      * @param elementos Arreglo con el que se contruirá el montículo.
      */
     public Monticulo(int[] elementos){
-        for(int i=0;i<=elementos.length;i++){
+        this.elementos=new int[elementos.length];
+        ultimoIndice=-1;
+        comparador= (integer1, integer2) -> {
+            if (integer1>integer2)
+                return 1;
+            if (integer1<integer2)
+                return -1;
+            return 0;
+        };
+        for(int i=0;i<elementos.length;i++){
             this.elementos[i]=elementos[i];
+            ultimoIndice++;
         }
-        ultimoIndice=this.elementos.length-1;
-        int n;
+//        ultimoIndice=this.elementos.length-1;
         if(this.elementos.length==0)
             return;
-        for(n=(this.elementos.length/2)-1;n>=0;n--){
+        for(int n=(this.elementos.length/2)-1;n>=0;n--){
             acomodaHaciaAbajo(n);
         }
     }
@@ -64,15 +72,17 @@ public class Monticulo{
      * @param comparador Comparator con el que se organizará el heap.
      */
     public Monticulo(int[] elementos, Comparator<Integer> comparador){
+        this.elementos=new int[elementos.length];
+        ultimoIndice=-1;
         this.comparador=comparador;
-        for(int i=0;i<=elementos.length;i++){
+        for(int i=0;i<elementos.length;i++){
             this.elementos[i]=elementos[i];
+            ultimoIndice++;
         }
-        ultimoIndice=this.elementos.length-1;
-        int n;
+//        ultimoIndice=this.elementos.length-1;
         if(this.elementos.length==0)
             return;
-        for(n=(this.elementos.length/2)-1;n>=0;n--){
+        for(int n=(this.elementos.length/2)-1;n>=0;n--){
             acomodaHaciaAbajo(n);
         }
     }
@@ -85,10 +95,14 @@ public class Monticulo{
      */
     public int elimina(){
         int antiguaRaiz = elementos[0];
-        elementos[ultimoIndice] = elementos[0];
+//        int nuevaRaiz=elementos[ultimoIndice];
+//        elementos[ultimoIndice] = elementos[0];
+//        elementos[0]=nuevaRaiz;
+        intercambiaElementos(0,ultimoIndice);
         ultimoIndice --;
-        acomodaHaciaAbajo(elementos[0]);
+        acomodaHaciaAbajo(0);   //acomodamos la nueva raíz en el lugar que le corresponde
         return antiguaRaiz;
+
     }
 
     /**
@@ -98,8 +112,6 @@ public class Monticulo{
      *                  <code>false</code>  En otro caso.
      */
     public boolean contiene(int elemento){
-        if(elemento<0 || elemento>=ultimoIndice)
-            return false;
         for(int i=0;i<ultimoIndice;i++){
             if(elemento==elementos[i])
                 return true;
@@ -113,9 +125,7 @@ public class Monticulo{
      *          <code>false</code>  En otro caso.
      */
     public boolean esVacio(){
-         if(ultimoIndice==-1)
-            return true;
-        return false;
+        return ultimoIndice == -1;
     }
 
     /**
@@ -132,10 +142,8 @@ public class Monticulo{
      */
     public void agrega(int i){
         if(ultimoIndice +1 == elementos.length){
-            int nuevoArreglo [] = new int [elementos.length *2];
-            for(int j = 0; j< elementos.length; j++){
-                nuevoArreglo[j] = elementos[j];
-            }
+            int[] nuevoArreglo = new int[elementos.length * 2];
+            System.arraycopy(elementos, 0, nuevoArreglo, 0, elementos.length);
             this.elementos=nuevoArreglo;
         }
         ultimoIndice++;
@@ -148,7 +156,7 @@ public class Monticulo{
      * @param n Posición a intercambiar del arreglo .
      * @param m Posición a intercambiar del arreglo .
      */
-    public void intercambiaHeap (int n,int m){
+    private void intercambiaElementos(int n, int m){
         int aux=elementos[n];
         elementos[n]=elementos[m];
         elementos[m]=aux;
@@ -161,22 +169,25 @@ public class Monticulo{
     private void acomodaHaciaAbajo(int n){
         int posicionHijoIzquierdo=n*2+1;
         int posicionHijoDerecho=n*2+2;
-        int aux=n;  //variable para saber en cuál posición está el elemento más pequeño comparando con los hijos
+        int aux=n;  //variable para saber en cuál posición está el elemento más pequeño, comparándolo con los hijos
 
-        if(posicionHijoIzquierdo<ultimoIndice && elementos[posicionHijoIzquierdo]< elementos[n])
+//        if(posicionHijoIzquierdo<ultimoIndice && elementos[posicionHijoIzquierdo]< elementos[n])
+        if((comparador.compare(posicionHijoIzquierdo, ultimoIndice+1) < 0) &&
+           (comparador.compare(elementos[posicionHijoIzquierdo], elementos[n]) < 0))
             aux=posicionHijoIzquierdo;
 
-        if(posicionHijoDerecho<ultimoIndice && elementos[posicionHijoDerecho]< elementos[aux])
+        if((comparador.compare(posicionHijoDerecho, ultimoIndice+1) < 0) &&
+          (comparador.compare(elementos[posicionHijoDerecho], elementos[aux]) < 0))
             aux=posicionHijoDerecho;
 
         if (aux!=n){
-            intercambiaHeap(n,aux);
+            intercambiaElementos(n,aux);
             acomodaHaciaAbajo(aux);
         }
 
     }
-	
-	/**
+
+    /**
      * Algoritmo auxiliar heapify-up.
      * @param n     Posición del arreglo al que estamos acomodando.
      */
@@ -187,18 +198,41 @@ public class Monticulo{
         else
             posicionPadre=(n-1)/2;
 
-        if(n>0 && (comparador.compare(elementos[posicionPadre],elementos[n])==1))
+        if(n>0 && (comparador.compare(elementos[posicionPadre], elementos[n]) > 0))
         {
-            intercambiaHeap(n, posicionPadre);
+            intercambiaElementos(n, posicionPadre);
             acomodaHaciaArriba(posicionPadre);
         }
 
     }
 
+    /**
+     * Imprime el montículo creado
+     */
+    public void imprimeHeap(){
+        for(int i=0;i<=ultimoIndice;i++){
+            System.out.println(elementos[i]);
+        }
+    }
+
     public static void main(String[] args) {
-        int [] arr={14,10,27,42,33,35,26,31,44,42,19};
+        int [] arr={14,10,27,42,41,26,31,44,33,19};
 
         Monticulo monticulo=new Monticulo(arr);
-
+        System.out.println(monticulo.getTamano());
+        System.out.println();
+        monticulo.imprimeHeap();
+        System.out.println();
+        monticulo.agrega(3);
+        monticulo.imprimeHeap();
+        System.out.println();
+        System.out.println(monticulo.getTamano());
+        System.out.println();
+        System.out.println(monticulo.elimina());
+        System.out.println(monticulo.getTamano());
+        System.out.println();
+        monticulo.imprimeHeap();
+        System.out.println();
+        System.out.println(monticulo.contiene(31));
     }
 }
