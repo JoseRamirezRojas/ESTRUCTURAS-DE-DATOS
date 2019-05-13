@@ -189,7 +189,10 @@ public class Ordenamientos{
     }
 
     public static void heapSort(int[] a){
-        // Aquí va su código.
+        Monticulo monticulo=new Monticulo(a);
+        for (int i = 0; i<a.length;i++){
+            a[i]= monticulo.elimina();
+        }
     }
 
     public static void main(String args[]){

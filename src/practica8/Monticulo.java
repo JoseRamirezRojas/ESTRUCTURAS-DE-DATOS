@@ -217,6 +217,7 @@ public class Monticulo{
 
     public static void main(String[] args) {
         int [] arr={14,10,27,42,41,26,31,44,33,19};
+        int [] arr2=arr;
 
         Monticulo monticulo=new Monticulo(arr);
         System.out.println(monticulo.getTamano());
@@ -234,5 +235,10 @@ public class Monticulo{
         monticulo.imprimeHeap();
         System.out.println();
         System.out.println(monticulo.contiene(31));
+        System.out.println();
+        Ordenamientos.heapSort(arr2);
+        for(int i=0;i<arr2.length;i++){
+            System.out.println(arr2[i]);
+        }
     }
 }
