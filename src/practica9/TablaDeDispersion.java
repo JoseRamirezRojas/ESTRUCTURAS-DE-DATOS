@@ -28,12 +28,12 @@ public class TablaDeDispersion<K, V>{
 
      public TablaDeDispersion(){
 	 // Aquí va su código.
-        this(CAPACIDAD_MINIMA, (k llave -> llave.hashCode());
+        this(CAPACIDAD_MINIMA, (k llave) -> llave.hashCode());
     }
     
     public TablaDeDispersion(int capacidad){
 	// Aquí va su código.
-        this(capacidad, (k llave -> llave.hashCode()))
+        this(capacidad, (k llave) -> llave.hashCode())
     }
 
     public TablaDeDispersion(Dispersor<K> dispersor){
@@ -55,7 +55,30 @@ public class TablaDeDispersion<K, V>{
 
     public void agrega(K llave, V valor){
 	// Aquí va su código.
-        
+        if(llave == null || valor == null)
+            return;
+
+        int dispersion = dispersor.dispersa(llave) & (tabla.length - 1);
+
+        if (tabla[dispersion] == null) {
+            entrada[dispersion] = new Lista<Entrada>();
+            entrada[dispersion].agrega(new (llave,valor));
+            elementos++;
+        } else {
+            boolean estaLlave = false;
+
+            for (Entrada entrada : tabla[dispersion]) {
+                if (entrada.llave.equals(llave)) {
+                    estaLlave = true;
+                    entrada.valor = valor;
+                }
+            }
+
+            if (!estaLlave) {
+                elementos++;
+                tabla[dispersion].agrega(new Entrada(llave,valor));
+            }
+        }
     }
  
     public V getValor(K llave){
@@ -84,9 +107,24 @@ public class TablaDeDispersion<K, V>{
 
     public Lista<K> getLlaves(){
 	// Aquí va su código.
+        Lista<K> llaves = new Lista<K>();
+
+        for (Lista<Entrada> lista : tabla)
+            if (lista != null)
+                for (Entrada entrada : lista)
+                    llaves.agrega(entrada.llave);
+        return llaves;
     }
 
     public Lista<V> getValores(){
 	// Aquí va su código.
+        Lista<V> valores = new Lista<V>();
+
+        for (Lista<Entrada> lista : tabla)
+            if (lista != null)
+                for (Entrada entrada : lista)
+                    valores.agrega(entrada.llave);
+        
+        return valores;
     } 
 }
