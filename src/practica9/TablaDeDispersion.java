@@ -308,11 +308,16 @@ public class TablaDeDispersion<K, V>{
         System.out.println("Valor eliminado correspondiente a la llave  35 : " + tablaDeDispersion.elimina(35));
         System.out.println(tablaDeDispersion.contieneValor(89));
 
-        System.out.print("\nValores :\n ");
+        System.out.print("\nValores :\n");
         tablaDeDispersion.getValores().imprimeElementos();
         System.out.print("Llaves : \n");
         tablaDeDispersion.getLlaves().imprimeElementos();
-        System.out.print("Elementos : "+tablaDeDispersion.getElementos());
+        System.out.println("Elementos : "+tablaDeDispersion.getElementos());
+
+
+        String palabra="adios";
+        byte[] bytes=palabra.getBytes();
+        System.out.println("\nPrueba DBJ\n"+ Dispersiones.dispersionDJB(bytes));
 
     }
 }
