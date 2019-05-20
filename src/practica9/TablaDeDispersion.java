@@ -36,8 +36,8 @@ public class TablaDeDispersion<K, V>{
 
     /**
      * Crea un arreglo genérico
-     * @param tamano
-     * @return
+     * @param tamano  Tamaño del arreglo genérico
+     * @return  Arrgelo de listas de entradas.
      */
     private Lista<Entrada>[] nuevoArreglo(int tamano){
 	@SuppressWarnings("unchecked")
@@ -167,13 +167,10 @@ public class TablaDeDispersion<K, V>{
         if (valor == null)
             return false;
 
-//        Lista<Entrada> listaEntradas = tabla[dispersor.dispersa() & (tabla.length-1)];
-//        for (Entrada entrada : listaEntradas)
-//            if (entrada.valor.equals(valor))
-//                return true;
-
-
-        //for(Entrada entrada: tabla)
+        for(Lista<Entrada> lista: tabla)
+            for(Entrada entrada:lista)
+                if(entrada.valor.equals(valor))
+                    return true;
 
         return false;
     }
@@ -190,7 +187,7 @@ public class TablaDeDispersion<K, V>{
     /**
      * Elimina el elemento asociado a la llave.
      * @param llave  Llave del elemento a eliminar
-     * @return
+     * @return       Elemento eliminado de la tabla de dispersión, asociado a la llave recibida.
      */
     public V elimina(K llave){
         if (llave == null)
@@ -257,7 +254,7 @@ public class TablaDeDispersion<K, V>{
      * Regresa la carga actual del diccionario.
      * @return Carga del diccionario.
      */
-    public double getCarga() {
+    private double getCarga() {
         return (double)elementos/tabla.length;
     }
 
@@ -269,19 +266,48 @@ public class TablaDeDispersion<K, V>{
         tabla = nuevoArreglo(diccionario.length*2);
         int llaveDispersada;
 
-        for (int i = 0; i < diccionario.length; i++) {
-            if (diccionario[i] != null) {
-                for (Entrada entrada : diccionario[i]) {
-                    llaveDispersada = dispersor.dispersa(entrada.llave) & (tabla.length-1);
+        for (Lista<Entrada> entradas : diccionario) {
+            if (entradas != null) {
+                for (Entrada entrada : entradas) {
+                    llaveDispersada = dispersor.dispersa(entrada.llave) & (tabla.length - 1);
                     if (tabla[llaveDispersada] != null) {
                         tabla[llaveDispersada].agregaFinal(entrada);
                     } else {
-                        Lista<Entrada> nuevaEntrada = new Lista<Entrada>();
+                        Lista<Entrada> nuevaEntrada = new Lista<>();
                         nuevaEntrada.agregaFinal(entrada);
                         tabla[llaveDispersada] = nuevaEntrada;
                     }
                 }
             }
         }
+    }
+
+    public static void main(String[] args) {
+        TablaDeDispersion<Integer, Integer> tablaDeDispersion = new TablaDeDispersion<>();
+        tablaDeDispersion.agrega(21, 12);
+        tablaDeDispersion.agrega(25, 121);
+        tablaDeDispersion.agrega(30, 151);
+        tablaDeDispersion.agrega(33, 15);
+        tablaDeDispersion.agrega(35, 89);
+
+        System.out.println(tablaDeDispersion.contieneLlave(21));
+        System.out.println("Valor correspondiente a la llave 21: " + tablaDeDispersion.getValor(21));
+        System.out.println("Valor correspondiente a la llave 35: " + tablaDeDispersion.getValor(35));
+        System.out.println(tablaDeDispersion.contieneValor(89));
+
+        System.out.print("Valores : ");
+        tablaDeDispersion.getValores();
+        System.out.print("Llaves : ");
+        tablaDeDispersion.getLlaves();
+
+        System.out.println("\n\nValor correspondiente a la llave 21 eliminado: " + tablaDeDispersion.elimina(21));
+        System.out.println("Valor correspondiente a la llave  35 eliminado: " + tablaDeDispersion.elimina(35));
+
+        System.out.print("Valores : ");
+        tablaDeDispersion.getValores();
+        System.out.print("Llaves : ");
+        tablaDeDispersion.getLlaves();
+        System.out.print("Elementos : "+tablaDeDispersion.getElementos());
+
     }
 }
