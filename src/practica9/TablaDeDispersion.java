@@ -167,10 +167,14 @@ public class TablaDeDispersion<K, V>{
         if (valor == null)
             return false;
 
-        for(Lista<Entrada> lista: tabla)
-            for(Entrada entrada:lista)
-                if(entrada.valor.equals(valor))
+        for (int i = 0; i < tabla.length; i++) {
+            if (tabla[i]==null)
+                continue;
+            Lista<Entrada> lista = tabla[i];
+            for (Entrada entrada : lista)
+                if (entrada.valor.equals(valor))
                     return true;
+        }
 
         return false;
     }
@@ -295,18 +299,19 @@ public class TablaDeDispersion<K, V>{
         System.out.println("Valor correspondiente a la llave 35: " + tablaDeDispersion.getValor(35));
         System.out.println(tablaDeDispersion.contieneValor(89));
 
-        System.out.print("Valores : ");
-        tablaDeDispersion.getValores();
-        System.out.print("Llaves : ");
-        tablaDeDispersion.getLlaves();
+        System.out.print("\nValores : \n");
+        tablaDeDispersion.getValores().imprimeElementos();
+        System.out.print("Llaves : \n");
+        tablaDeDispersion.getLlaves().imprimeElementos();
 
-        System.out.println("\n\nValor correspondiente a la llave 21 eliminado: " + tablaDeDispersion.elimina(21));
-        System.out.println("Valor correspondiente a la llave  35 eliminado: " + tablaDeDispersion.elimina(35));
+        System.out.println("\n\nValor eliminado correspondiente a la llave 21 : " + tablaDeDispersion.elimina(21));
+        System.out.println("Valor eliminado correspondiente a la llave  35 : " + tablaDeDispersion.elimina(35));
+        System.out.println(tablaDeDispersion.contieneValor(89));
 
-        System.out.print("Valores : ");
-        tablaDeDispersion.getValores();
-        System.out.print("Llaves : ");
-        tablaDeDispersion.getLlaves();
+        System.out.print("\nValores :\n ");
+        tablaDeDispersion.getValores().imprimeElementos();
+        System.out.print("Llaves : \n");
+        tablaDeDispersion.getLlaves().imprimeElementos();
         System.out.print("Elementos : "+tablaDeDispersion.getElementos());
 
     }
