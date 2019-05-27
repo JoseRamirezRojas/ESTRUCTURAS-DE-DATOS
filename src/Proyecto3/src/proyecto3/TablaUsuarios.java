@@ -1,19 +1,31 @@
 package proyecto3;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Ramírez Rojas José David
  * @author Cruz Carmona Uriel
  */
-public class TablaUsuarios {
+public class TablaUsuarios implements Serializable{
     private static TablaUsuarios tablaUsuarios;
     TablaDeDispersion<String,Usuario> tabla;
     
     /** 
      * Constructor de la clase 
      */ 
-    private TablaUsuarios(){ 
+    TablaUsuarios(){ 
         tabla = new TablaDeDispersion<>() ; 
+    } 
+    
+    /** 
+     * Obtiene una instancia de la clase MapaUsuarios 
+     * @return 
+     */ 
+    public static TablaUsuarios getInstance(){ 
+        if(tablaUsuarios == null) 
+            tablaUsuarios = new TablaUsuarios(); 
+        return tablaUsuarios; 
     } 
     
     /** 
@@ -32,5 +44,4 @@ public class TablaUsuarios {
     public Usuario obtenerUsuario(String nombre){ 
         return tabla.getValor(nombre); 
     } 
-
 }

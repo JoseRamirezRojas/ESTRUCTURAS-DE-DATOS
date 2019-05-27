@@ -214,6 +214,8 @@ public class RegistroUsuario extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Contraseñas no coinciden","Advertencia"
                 ,JOptionPane.ERROR_MESSAGE);   
         else{
+            Usuario nuevoUsuario=new Usuario(CampoUsuario.getText(),Arrays.toString(CampoContrasena1.getPassword()),0);
+            //tablaUsuarios.agregarNuevoUsuario(nuevoUsuario);
             CampoUsuario.setText("");
             CampoContrasena1.setText("");
             CampoContrasena2.setText("");

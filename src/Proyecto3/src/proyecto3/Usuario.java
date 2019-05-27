@@ -10,6 +10,12 @@ public class Usuario implements Serializable {
     private String contrasena; 
     private double saldo; 
 
+    public Usuario(String nombre, String contrasena, double saldo) {
+        this.nombre = nombre;
+        this.contrasena = contrasena;
+        this.saldo = saldo;
+    }
+    
     /**
      * 
      * @return  nombre de usuario
