@@ -4,7 +4,7 @@ package proyecto3;
 /**
  * Clase que define tablas de dispersión.
  *
- * Ramírez Rojas José Dvid
+ * Ramírez Rojas José David
  * Cruz Carmona Uriel
  */
 public class TablaDeDispersion<K, V>{

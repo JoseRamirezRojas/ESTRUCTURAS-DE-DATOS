@@ -44,4 +44,13 @@ public class TablaUsuarios implements Serializable{
     public Usuario obtenerUsuario(String nombre){ 
         return tabla.getValor(nombre); 
     } 
+    
+    /** 
+     * Devuelve si un Usuario se encuentra dentro del mapa 
+     * @param usuario 
+     * @return Usuario asociado al nombre recibido.
+     */ 
+    public boolean validarUsuario(Usuario usuario){ 
+        return (tabla.getValor(usuario.getContrasena())!=null);
+    } 
 }

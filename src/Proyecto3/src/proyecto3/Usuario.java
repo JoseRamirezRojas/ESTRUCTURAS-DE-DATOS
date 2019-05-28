@@ -8,9 +8,15 @@ import java.io.Serializable;
 public class Usuario implements Serializable {
     private String nombre; 
     private String contrasena; 
-    private double saldo; 
+    private float saldo; 
 
-    public Usuario(String nombre, String contrasena, double saldo) {
+    /**
+     *
+     * @param nombre
+     * @param contrasena
+     * @param saldo
+     */
+    public Usuario(String nombre, String contrasena, float saldo) {
         this.nombre = nombre;
         this.contrasena = contrasena;
         this.saldo = saldo;
@@ -60,7 +66,7 @@ public class Usuario implements Serializable {
      * 
      * @param saldo Saldo a establecer del usuario.
      */
-    public void setSaldo(double saldo) {
+    public void setSaldo(float saldo) {
         this.saldo = saldo;
     }
     
