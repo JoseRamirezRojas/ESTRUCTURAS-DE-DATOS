@@ -1,9 +1,11 @@
 package proyecto3;
 
+import java.io.Serializable;
+
 /**
  * Clase con varias funciones de dispersión.
  */
-public class Dispersiones{
+public class Dispersiones implements Serializable{
 
     /**
      * Función de dispersión de XOR

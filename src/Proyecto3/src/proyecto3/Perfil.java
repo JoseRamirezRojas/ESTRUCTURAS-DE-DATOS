@@ -5,11 +5,13 @@
  */
 package proyecto3;
 
+import java.io.Serializable;
+
 /**
  *
  * @author pepew
  */
-public class Perfil extends javax.swing.JFrame {
+public class Perfil extends javax.swing.JFrame implements Serializable{
 
     /**
      * Creates new form Perfil

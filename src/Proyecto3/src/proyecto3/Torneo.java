@@ -6,12 +6,13 @@
 package proyecto3;
 
 import java.awt.Image;
+import java.io.Serializable;
 
 /**
  *
  * @author pepew
  */
-public class Torneo extends javax.swing.JFrame {
+public class Torneo extends javax.swing.JFrame implements Serializable {
 
     private Image imagen;
     /**

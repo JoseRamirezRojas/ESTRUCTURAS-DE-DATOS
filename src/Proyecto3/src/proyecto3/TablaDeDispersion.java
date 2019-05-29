@@ -1,5 +1,7 @@
 package proyecto3;
 
+import java.io.Serializable;
+
 
 /**
  * Clase que define tablas de dispersión.
@@ -7,8 +9,9 @@ package proyecto3;
  * Ramírez Rojas José David
  * Cruz Carmona Uriel
  */
-public class TablaDeDispersion<K, V>{
+public class TablaDeDispersion<K, V> implements Serializable{
 
+    private static final long serialVersionUID=1L;
     /**
      * Clase privada de las tablas de dispersión, contiene una llave y un valor.
      */
@@ -129,12 +132,16 @@ public class TablaDeDispersion<K, V>{
     public V getValor(K llave){
         if (llave == null)
             return null;
-
-        Lista<Entrada> listaTabla = tabla[dispersor.dispersa(llave) & (tabla.length-1)];
+        
         V valor = null;
-        for (Entrada entrada : listaTabla)
-            if (entrada.llave.equals(llave))
-                valor = entrada.valor;
+        for (Lista<Entrada> tabla1 : tabla) {
+            if (tabla1 == null)
+                continue;
+            Lista<Entrada> listaTabla = tabla[dispersor.dispersa(llave) & (tabla.length-1)];
+            for (Entrada entrada : listaTabla)
+                if (entrada.llave.equals(llave))
+                    valor = entrada.valor;
+        }
 
         return valor;
     }

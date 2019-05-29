@@ -5,19 +5,43 @@
  */
 package proyecto3;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author pepew
  */
-public class CalienteMx extends javax.swing.JFrame {
+public class CalienteMx extends javax.swing.JFrame implements Serializable{
+    
+    static TablaUsuarios tablaUsuarios;
 
     /**
      * Creates new form CalienteMx
      */
     public CalienteMx() {
+        tablaUsuarios = new TablaUsuarios();
         initComponents();
+        try{
+            ObjectOutputStream o=new ObjectOutputStream(new FileOutputStream("BaseCaliente.txt"));
+            o.writeObject(tablaUsuarios);
+            o.close();
+            
+            ObjectInputStream m=new ObjectInputStream(new FileInputStream("BaseCaliente.txt"));
+            tablaUsuarios=(TablaUsuarios)m.readObject();
+            
+            m.close();
+            
+        }
+        catch(IOException | ClassNotFoundException e){
+            System.out.println(e.getMessage());
+        }
+        
     }
 
     /**
@@ -178,7 +202,8 @@ public class CalienteMx extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         dispose();
-        RegistroUsuario r=new RegistroUsuario();
+        RegistroUsuario r = new RegistroUsuario();
+        RegistroUsuario.setTablaUsuarios(tablaUsuarios);
         r.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -187,6 +212,14 @@ public class CalienteMx extends javax.swing.JFrame {
         if(campoContrasena.getPassword().length==0||campoUsuario.getText().isEmpty())
             JOptionPane.showMessageDialog(null, "Uno o más campos están vacíos ",
                 "Advertencia",JOptionPane.ERROR_MESSAGE);
+        
+        Usuario ingreso = tablaUsuarios.obtenerUsuario(campoUsuario.getText().trim());
+                //new Usuario(campoUsuario.getText().trim(),campoContrasena.getText().trim());
+                
+        if (ingreso == null) {
+            System.out.println("OHHHHHHHHH");
+        }
+
     }//GEN-LAST:event_botonIngresarActionPerformed
 
     /**
@@ -198,7 +231,6 @@ public class CalienteMx extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        TablaUsuarios tabla;
         //tabla = new TablaUsuarios();
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -207,13 +239,7 @@ public class CalienteMx extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CalienteMx.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CalienteMx.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CalienteMx.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(CalienteMx.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>

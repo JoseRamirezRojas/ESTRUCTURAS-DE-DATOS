@@ -38,7 +38,7 @@ public class TablaUsuarios implements Serializable{
     
     /** 
      * Devuelve un objeto Usuario si se encuentra dentro del mapa 
-     * @param nombre    Nombre del usuuario 
+     * @param nombre    Nombre del usuario 
      * @return Usuario asociado al nombre recibido.
      */ 
     public Usuario obtenerUsuario(String nombre){ 
@@ -52,5 +52,13 @@ public class TablaUsuarios implements Serializable{
      */ 
     public boolean validarUsuario(Usuario usuario){ 
         return (tabla.getValor(usuario.getContrasena())!=null);
-    } 
+    }
+
+    public TablaDeDispersion<String, Usuario> getTabla() {
+        return tabla;
+    }
+    
+    public boolean esVacia(){
+    return tabla.esVacia();}
+    
 }

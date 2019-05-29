@@ -5,6 +5,12 @@
  */
 package proyecto3;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.Arrays;
 import javax.swing.JOptionPane;
 
@@ -12,13 +18,27 @@ import javax.swing.JOptionPane;
  *
  * @author pepew
  */
-public class RegistroUsuario extends javax.swing.JFrame {
+public class RegistroUsuario extends javax.swing.JFrame implements Serializable{
+
+        static TablaUsuarios tablaUsuarios;
+        
 
     /**
      * Creates new form RegistroUsuario
      */
     public RegistroUsuario() {
         initComponents();
+
+        try{
+            ObjectInputStream m=new ObjectInputStream(new FileInputStream("BaseCaliente.txt"));
+            tablaUsuarios=(TablaUsuarios)m.readObject();
+            
+            m.close();
+            
+        }
+        catch(IOException | ClassNotFoundException e){
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -197,6 +217,10 @@ public class RegistroUsuario extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    public static void setTablaUsuarios(TablaUsuarios tablaUsuarios) {
+        RegistroUsuario.tablaUsuarios = tablaUsuarios;
+    }
+    
     private void CampoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CampoUsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_CampoUsuarioActionPerformed
@@ -214,14 +238,24 @@ public class RegistroUsuario extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Contraseñas no coinciden","Advertencia"
                 ,JOptionPane.ERROR_MESSAGE);   
         else{
-            Usuario nuevoUsuario=new Usuario(CampoUsuario.getText(),Arrays.toString(CampoContrasena1.getPassword()),0);
-            //tablaUsuarios.agregarNuevoUsuario(nuevoUsuario);
+            Usuario nuevoUsuario = new Usuario(CampoUsuario.getText(),CampoContrasena1.getText());
+            tablaUsuarios.agregarNuevoUsuario(nuevoUsuario);
+            
+            try{
+            ObjectOutputStream o=new ObjectOutputStream(new FileOutputStream("BaseCaliente.txt"));
+            o.writeObject(tablaUsuarios);
+            o.close();
+            
+            }
+            catch(IOException e){
+                System.out.println(e.getMessage());
+            }
             CampoUsuario.setText("");
             CampoContrasena1.setText("");
             CampoContrasena2.setText("");
             JOptionPane.showMessageDialog(null, "Cuenta creada exitosamente."
                 + "\nPor favor vuelve al inicio de sesión",
-                "Cuenta creada",JOptionPane.INFORMATION_MESSAGE);
+                "Cuenta creada",JOptionPane.INFORMATION_MESSAGE);        
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
