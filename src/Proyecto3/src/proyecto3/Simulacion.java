@@ -5,6 +5,7 @@
  */
 package proyecto3;
 
+import java.io.Serializable;
 import java.util.Random;
 import static proyecto3.Equipos.AMERICA;
 import static proyecto3.Equipos.CHIVAS;
@@ -18,7 +19,7 @@ import static proyecto3.Equipos.TIGRES;
 /**
  *
  */
-public class Simulacion {
+public class Simulacion implements Serializable{
     
     
     public void asignaEquipos(){

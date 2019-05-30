@@ -9,6 +9,7 @@ public class Usuario implements Serializable {
     private String nombre; 
     private String contrasena; 
     private float saldo; 
+    private String historial;
 
     /**
      *
@@ -19,6 +20,7 @@ public class Usuario implements Serializable {
         this.nombre = nombre;
         this.contrasena = contrasena;
         saldo = 0;
+        historial=" ";
     }
     
     /**
@@ -69,5 +71,8 @@ public class Usuario implements Serializable {
         this.saldo = saldo;
     }
     
+    public void setHistorial(String historial) {
+        this.historial = historial;
+    }
 
 }

@@ -1,10 +1,12 @@
 package proyecto3;
 
+import java.io.Serializable;
+
 /**
  *
  * @author pepew
  */
-public class Proyecto3 {
+public class Proyecto3 implements Serializable{
 
     /**
      * @param args the command line arguments

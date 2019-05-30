@@ -15,7 +15,6 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author pepew
  */
 public class CalienteMx extends javax.swing.JFrame implements Serializable{
     
@@ -25,23 +24,28 @@ public class CalienteMx extends javax.swing.JFrame implements Serializable{
      * Creates new form CalienteMx
      */
     public CalienteMx() {
-        tablaUsuarios = new TablaUsuarios();
         initComponents();
-        try{
-            ObjectOutputStream o=new ObjectOutputStream(new FileOutputStream("BaseCaliente.txt"));
-            o.writeObject(tablaUsuarios);
-            o.close();
-            
-            ObjectInputStream m=new ObjectInputStream(new FileInputStream("BaseCaliente.txt"));
-            tablaUsuarios=(TablaUsuarios)m.readObject();
-            
-            m.close();
-            
+        tablaUsuarios = new TablaUsuarios();
+
+        //se esta comentando para poder leer la base y no crear una nueva
+         //base = new Base();
+        try{   
+             
+            //ObjectOutputStream escribiendo_fichero = new ObjectOutputStream(new FileOutputStream("/home/nestor2502/Escritorio/Test1.txt"));
+            ObjectOutputStream escribiendo_fichero = new ObjectOutputStream(new FileOutputStream("C:\\Users\\pepew\\Desktop\\Test2.txt"));
+            escribiendo_fichero.writeObject(tablaUsuarios);
+            escribiendo_fichero.close();
+                
+            ObjectInputStream recuperando_fichero= new ObjectInputStream(new FileInputStream("C:\\Users\\pepew\\Desktop\\Test2.txt"));
+            tablaUsuarios =(TablaUsuarios )recuperando_fichero.readObject();
+            recuperando_fichero.close();
         }
-        catch(IOException | ClassNotFoundException e){
+        catch(IOException e){
             System.out.println(e.getMessage());
         }
-        
+        catch(ClassNotFoundException e){
+            System.out.println(e.getMessage());
+                }   
     }
 
     /**
@@ -64,7 +68,7 @@ public class CalienteMx extends javax.swing.JFrame implements Serializable{
         campoContrasena = new javax.swing.JPasswordField();
         botonIngresar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        botonRegistrarse = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
@@ -129,10 +133,10 @@ public class CalienteMx extends javax.swing.JFrame implements Serializable{
         jLabel4.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
         jLabel4.setText("¿No tienes una cuenta?");
 
-        jButton2.setText("REGÍSTRATE");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        botonRegistrarse.setText("REGÍSTRATE");
+        botonRegistrarse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                botonRegistrarseActionPerformed(evt);
             }
         });
 
@@ -163,7 +167,7 @@ public class CalienteMx extends javax.swing.JFrame implements Serializable{
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(botonRegistrarse, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(11, 11, 11)))))
                 .addContainerGap())
@@ -192,7 +196,7 @@ public class CalienteMx extends javax.swing.JFrame implements Serializable{
                 .addGap(33, 33, 33)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(botonRegistrarse)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -200,24 +204,27 @@ public class CalienteMx extends javax.swing.JFrame implements Serializable{
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void botonRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarseActionPerformed
         dispose();
         RegistroUsuario r = new RegistroUsuario();
         RegistroUsuario.setTablaUsuarios(tablaUsuarios);
         r.setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_botonRegistrarseActionPerformed
 
     private void botonIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonIngresarActionPerformed
         // TODO add your handling code here:
         if(campoContrasena.getPassword().length==0||campoUsuario.getText().isEmpty())
             JOptionPane.showMessageDialog(null, "Uno o más campos están vacíos ",
-                "Advertencia",JOptionPane.ERROR_MESSAGE);
-        
-        Usuario ingreso = tablaUsuarios.obtenerUsuario(campoUsuario.getText().trim());
-                //new Usuario(campoUsuario.getText().trim(),campoContrasena.getText().trim());
-                
-        if (ingreso == null) {
-            System.out.println("OHHHHHHHHH");
+                "Advertencia",JOptionPane.ERROR_MESSAGE);                
+        else if (tablaUsuarios.obtenerUsuario(campoUsuario.getText())!=null) {
+            dispose();
+            Perfil perfil=new Perfil();
+            perfil.setVisible(true);
+            //Usuario ingreso = tablaUsuarios.obtenerUsuario(campoUsuario.getText().trim());             
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Usuario no encontrado. ","Error",
+                JOptionPane.ERROR_MESSAGE);        
         }
 
     }//GEN-LAST:event_botonIngresarActionPerformed
@@ -253,9 +260,9 @@ public class CalienteMx extends javax.swing.JFrame implements Serializable{
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonIngresar;
+    private javax.swing.JButton botonRegistrarse;
     private javax.swing.JPasswordField campoContrasena;
     private javax.swing.JTextField campoUsuario;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

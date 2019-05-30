@@ -1,4 +1,5 @@
 package proyecto3;
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -11,10 +12,10 @@ import java.util.NoSuchElementException;
  *
  * Implementación de listas ligadas.
  */
-public class Lista<T> implements Iterable<T>{
+public class Lista<T> implements Iterable<T>,Serializable{
 
     // Clase interna para representar los nodos de nuestras listas.
-    private class Nodo{
+    private class Nodo implements Serializable{
 
         public T elemento;
         public Nodo siguiente;
@@ -29,7 +30,7 @@ public class Lista<T> implements Iterable<T>{
     }
 
     // Clase para iterar la lista.
-    private class Iterador implements Iterator<T>{
+    private class Iterador implements Iterator<T>,Serializable{
 
         public Nodo siguiente;
 

@@ -11,11 +11,11 @@ import java.io.Serializable;
  */
 public class TablaDeDispersion<K, V> implements Serializable{
 
-    private static final long serialVersionUID=1L;
+   // private static final long serialVersionUID=1L;
     /**
      * Clase privada de las tablas de dispersión, contiene una llave y un valor.
      */
-    private class Entrada {
+    private class Entrada implements Serializable{
 
     	public K llave;
     	public V valor;

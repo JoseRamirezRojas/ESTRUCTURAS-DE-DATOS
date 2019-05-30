@@ -30,7 +30,7 @@ public class RegistroUsuario extends javax.swing.JFrame implements Serializable{
         initComponents();
 
         try{
-            ObjectInputStream m=new ObjectInputStream(new FileInputStream("BaseCaliente.txt"));
+            ObjectInputStream m=new ObjectInputStream(new FileInputStream("C:\\Users\\pepew\\Desktop\\Test2.txt"));
             tablaUsuarios=(TablaUsuarios)m.readObject();
             
             m.close();
@@ -59,10 +59,10 @@ public class RegistroUsuario extends javax.swing.JFrame implements Serializable{
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         CampoUsuario = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        botonCrearCuenta = new javax.swing.JButton();
         CampoContrasena1 = new javax.swing.JPasswordField();
         CampoContrasena2 = new javax.swing.JPasswordField();
-        jButton2 = new javax.swing.JButton();
+        botonRegresar = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -123,10 +123,10 @@ public class RegistroUsuario extends javax.swing.JFrame implements Serializable{
             }
         });
 
-        jButton1.setText("Crear cuenta");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        botonCrearCuenta.setText("Crear cuenta");
+        botonCrearCuenta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                botonCrearCuentaActionPerformed(evt);
             }
         });
 
@@ -142,10 +142,10 @@ public class RegistroUsuario extends javax.swing.JFrame implements Serializable{
             }
         });
 
-        jButton2.setText("Regresar a inicio de sesión");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        botonRegresar.setText("Regresar a inicio de sesión");
+        botonRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                botonRegresarActionPerformed(evt);
             }
         });
 
@@ -170,8 +170,8 @@ public class RegistroUsuario extends javax.swing.JFrame implements Serializable{
                             .addComponent(CampoContrasena2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(botonRegresar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(botonCrearCuenta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(60, 60, 60))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -191,9 +191,9 @@ public class RegistroUsuario extends javax.swing.JFrame implements Serializable{
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(CampoContrasena2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(botonCrearCuenta))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2)
+                .addComponent(botonRegresar)
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
@@ -229,45 +229,51 @@ public class RegistroUsuario extends javax.swing.JFrame implements Serializable{
         // TODO add your handling code here:
     }//GEN-LAST:event_CampoContrasena2ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void botonCrearCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCrearCuentaActionPerformed
         if(CampoContrasena1.getPassword().length==0||CampoContrasena2.getPassword().length ==0||
         CampoUsuario.getText().isEmpty())
             JOptionPane.showMessageDialog(null, "Uno o más campos están vacíos ",
                 "Advertencia",JOptionPane.ERROR_MESSAGE);
         else if(!(Arrays.equals(CampoContrasena1.getPassword(), CampoContrasena2.getPassword())))
             JOptionPane.showMessageDialog(null, "Contraseñas no coinciden","Advertencia"
-                ,JOptionPane.ERROR_MESSAGE);   
+                ,JOptionPane.ERROR_MESSAGE);
         else{
             Usuario nuevoUsuario = new Usuario(CampoUsuario.getText(),CampoContrasena1.getText());
             tablaUsuarios.agregarNuevoUsuario(nuevoUsuario);
             
             try{
-            ObjectOutputStream o=new ObjectOutputStream(new FileOutputStream("BaseCaliente.txt"));
-            o.writeObject(tablaUsuarios);
-            o.close();
+                
+                ObjectOutputStream o=new ObjectOutputStream(new FileOutputStream("C:\\Users\\pepew\\Desktop\\Test2.txt"));
+                o.writeObject(tablaUsuarios);
+                o.close();
             
             }
             catch(IOException e){
                 System.out.println(e.getMessage());
             }
-            CampoUsuario.setText("");
+            /*CampoUsuario.setText("");
             CampoContrasena1.setText("");
             CampoContrasena2.setText("");
             JOptionPane.showMessageDialog(null, "Cuenta creada exitosamente."
-                + "\nPor favor vuelve al inicio de sesión",
-                "Cuenta creada",JOptionPane.INFORMATION_MESSAGE);        
+                + "\nPor favor vuelve al inicio de sesión\n" +
+                tablaUsuarios.validarUsuario(nuevoUsuario),
+                "\nCuenta creada",JOptionPane.INFORMATION_MESSAGE); 
+            */
+            dispose();
+            Perfil p=new Perfil();
+            p.setVisible(true);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_botonCrearCuentaActionPerformed
 
     private void CampoContrasena1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CampoContrasena1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_CampoContrasena1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void botonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresarActionPerformed
         dispose();
         CalienteMx inicio=new CalienteMx();
         inicio.setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_botonRegresarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -308,8 +314,8 @@ public class RegistroUsuario extends javax.swing.JFrame implements Serializable{
     private javax.swing.JPasswordField CampoContrasena1;
     private javax.swing.JPasswordField CampoContrasena2;
     private javax.swing.JTextField CampoUsuario;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton botonCrearCuenta;
+    private javax.swing.JButton botonRegresar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
