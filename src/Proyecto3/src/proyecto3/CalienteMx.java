@@ -27,7 +27,7 @@ public class CalienteMx extends javax.swing.JFrame implements Serializable{
         initComponents();
         tablaUsuarios = new TablaUsuarios();
 
-        //se esta comentando para poder leer la base y no crear una nueva
+        //se esta comentadndo para poder leer la base y no crear una nueva
          //base = new Base();
         try{   
              

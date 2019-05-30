@@ -13,13 +13,24 @@ import java.io.Serializable;
  * @author pepew
  */
 public class Torneo extends javax.swing.JFrame implements Serializable {
-
+    private Simulacion sim=new Simulacion();
     private Image imagen;
+    Equipos[] eq;
     /**
      * Creates new form Torneo
      */
     public Torneo() {
         initComponents();
+        eq=sim.asignaEquipos();
+        Equipo1.setText(eq[0].getNombre());
+        Equipo2.setText(eq[1].getNombre());
+        Equipo3.setText(eq[2].getNombre());
+        Equipo4.setText(eq[3].getNombre());
+        Equipo5.setText(eq[4].getNombre());
+        Equipo6.setText(eq[5].getNombre());
+        Equipo7.setText(eq[6].getNombre());
+        Equipo8.setText(eq[7].getNombre());
+        
     }
 
     /**
@@ -78,11 +89,12 @@ public class Torneo extends javax.swing.JFrame implements Serializable {
         jScrollPane1.setViewportView(jList1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Torneo");
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         botonApostar2.setText("jButton1");
-        getContentPane().add(botonApostar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 270, -1, -1));
+        getContentPane().add(botonApostar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 260, -1, -1));
 
         botonApostar1.setText("Apostar");
         botonApostar1.addActionListener(new java.awt.event.ActionListener() {
@@ -90,60 +102,60 @@ public class Torneo extends javax.swing.JFrame implements Serializable {
                 botonApostar1ActionPerformed(evt);
             }
         });
-        getContentPane().add(botonApostar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, -1, -1));
+        getContentPane().add(botonApostar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, -1, -1));
 
         Equipo15.setText("jLabel15");
-        getContentPane().add(Equipo15, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 220, -1, -1));
+        getContentPane().add(Equipo15, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 210, -1, -1));
 
         Equipo14.setText("jLabel13");
-        getContentPane().add(Equipo14, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 160, -1, -1));
+        getContentPane().add(Equipo14, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 150, -1, -1));
 
         Equipo13.setText("jLabel12");
-        getContentPane().add(Equipo13, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 160, -1, -1));
+        getContentPane().add(Equipo13, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 150, -1, -1));
 
         Equipo12.setText("jLabel14");
-        getContentPane().add(Equipo12, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 250, -1, -1));
+        getContentPane().add(Equipo12, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 250, -1, -1));
 
         Equipo11.setText("jLabel11");
-        getContentPane().add(Equipo11, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 90, -1, -1));
+        getContentPane().add(Equipo11, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 80, -1, -1));
 
         Equipo10.setText("jLabel9");
-        getContentPane().add(Equipo10, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 250, -1, -1));
+        getContentPane().add(Equipo10, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 250, -1, -1));
 
         Equipo9.setText("jLabel16");
-        getContentPane().add(Equipo9, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 90, -1, -1));
+        getContentPane().add(Equipo9, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 80, -1, -1));
 
         Equipo8.setText("jLabel7");
-        getContentPane().add(Equipo8, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 310, -1, -1));
+        getContentPane().add(Equipo8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, -1, -1));
 
         Equipo7.setText("jLabel6");
-        getContentPane().add(Equipo7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, -1, -1));
+        getContentPane().add(Equipo7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, -1, -1));
 
         Equipo6.setText("jLabel17");
-        getContentPane().add(Equipo6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, -1, 20));
+        getContentPane().add(Equipo6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, 20));
 
         Equipo5.setText("jLabel8");
-        getContentPane().add(Equipo5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, -1, -1));
+        getContentPane().add(Equipo5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
         Equipo4.setText("jLabel10");
-        getContentPane().add(Equipo4, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 310, -1, -1));
+        getContentPane().add(Equipo4, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 300, -1, -1));
 
         Equipo3.setText("jLabel5");
-        getContentPane().add(Equipo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 230, -1, -1));
+        getContentPane().add(Equipo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 220, -1, -1));
 
         Equipo2.setText("jLabel4");
-        getContentPane().add(Equipo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 100, -1, -1));
+        getContentPane().add(Equipo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 100, -1, -1));
 
         Equipo1.setBackground(new java.awt.Color(102, 0, 102));
         Equipo1.setText(" EQUIPO 1");
         Equipo1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-        getContentPane().add(Equipo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 30, -1, -1));
+        getContentPane().add(Equipo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 20, -1, -1));
 
         botonRegresar.setText("Regresar");
-        getContentPane().add(botonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 170, 80, -1));
+        getContentPane().add(botonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 160, 80, -1));
 
         Bracket.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/bracket.png"))); // NOI18N
-        getContentPane().add(Bracket, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, 360));
+        getContentPane().add(Bracket, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, -1, 360));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -172,8 +184,8 @@ public class Torneo extends javax.swing.JFrame implements Serializable {
     private void botonApostar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonApostar1ActionPerformed
         // TODO add your handling code here:
         dispose();
-        Perfil perfil=new Perfil();
-        perfil.setVisible(true);
+        Apuesta a=new Apuesta();
+        a.setVisible(true);
     }//GEN-LAST:event_botonApostar1ActionPerformed
 
     

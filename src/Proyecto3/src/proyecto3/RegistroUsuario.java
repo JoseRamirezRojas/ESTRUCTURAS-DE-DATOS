@@ -20,8 +20,7 @@ import javax.swing.JOptionPane;
  */
 public class RegistroUsuario extends javax.swing.JFrame implements Serializable{
 
-        static TablaUsuarios tablaUsuarios;
-        
+    static TablaUsuarios tablaUsuarios;
 
     /**
      * Creates new form RegistroUsuario
@@ -251,17 +250,17 @@ public class RegistroUsuario extends javax.swing.JFrame implements Serializable{
             catch(IOException e){
                 System.out.println(e.getMessage());
             }
-            /*CampoUsuario.setText("");
+            CampoUsuario.setText("");
             CampoContrasena1.setText("");
             CampoContrasena2.setText("");
             JOptionPane.showMessageDialog(null, "Cuenta creada exitosamente."
                 + "\nPor favor vuelve al inicio de sesión\n" +
                 tablaUsuarios.validarUsuario(nuevoUsuario),
                 "\nCuenta creada",JOptionPane.INFORMATION_MESSAGE); 
-            */
-            dispose();
+            
+            /*dispose();
             Perfil p=new Perfil();
-            p.setVisible(true);
+            p.setVisible(true);*/
         }
     }//GEN-LAST:event_botonCrearCuentaActionPerformed
 

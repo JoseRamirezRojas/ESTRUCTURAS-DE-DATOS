@@ -21,19 +21,24 @@ import static proyecto3.Equipos.TIGRES;
  */
 public class Simulacion implements Serializable{
     
+    public Simulacion(){
+    }
     
-    public void asignaEquipos(){
+    public Equipos[] asignaEquipos(){
         Equipos[] equipos;
         equipos = new Equipos[]{AMERICA,CRUZAZUL,CHIVAS,PUMAS,LEON,TIGRES,
             MONTERREY,TIBURONES};
         Equipos[] equiposAleatorios = new Equipos[8];
         Random r=new Random();
+        for (int i = 0; i < equipos.length; i++) {
+            equiposAleatorios[i] = equipos[i];
+        }
         for (int j = equiposAleatorios.length; j > 0; j--) {
             int aleatorio = r.nextInt(j);
             Equipos temp = equiposAleatorios[j -1];
             equiposAleatorios[j -1] = equiposAleatorios[aleatorio];
             equiposAleatorios[aleatorio] = temp;
         }
-        
+        return equiposAleatorios;
     }
 }
