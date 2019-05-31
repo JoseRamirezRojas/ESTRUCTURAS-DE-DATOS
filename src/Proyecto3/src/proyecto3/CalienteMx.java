@@ -32,9 +32,9 @@ public class CalienteMx extends javax.swing.JFrame implements Serializable{
         try{   
              
             //ObjectOutputStream escribiendo_fichero = new ObjectOutputStream(new FileOutputStream("/home/nestor2502/Escritorio/Test1.txt"));
-            ObjectOutputStream escribiendo_fichero = new ObjectOutputStream(new FileOutputStream("C:\\Users\\pepew\\Desktop\\Test2.txt"));
-            escribiendo_fichero.writeObject(tablaUsuarios);
-            escribiendo_fichero.close();
+            //ObjectOutputStream escribiendo_fichero = new ObjectOutputStream(new FileOutputStream("C:\\Users\\pepew\\Desktop\\Test2.txt"));
+            //escribiendo_fichero.writeObject(tablaUsuarios);
+            //escribiendo_fichero.close();
                 
             ObjectInputStream recuperando_fichero= new ObjectInputStream(new FileInputStream("C:\\Users\\pepew\\Desktop\\Test2.txt"));
             tablaUsuarios =(TablaUsuarios )recuperando_fichero.readObject();

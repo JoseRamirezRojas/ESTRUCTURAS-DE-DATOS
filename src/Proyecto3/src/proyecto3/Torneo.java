@@ -13,9 +13,9 @@ import java.io.Serializable;
  * @author pepew
  */
 public class Torneo extends javax.swing.JFrame implements Serializable {
-    private Simulacion sim=new Simulacion();
+    private final Simulacion sim=new Simulacion();
     private Image imagen;
-    Equipos[] eq;
+    private static Equipos[] eq;
     /**
      * Creates new form Torneo
      */
@@ -183,10 +183,14 @@ public class Torneo extends javax.swing.JFrame implements Serializable {
 
     private void botonApostar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonApostar1ActionPerformed
         // TODO add your handling code here:
-        dispose();
+        this.setVisible(false);
         Apuesta a=new Apuesta();
         a.setVisible(true);
     }//GEN-LAST:event_botonApostar1ActionPerformed
+
+    public static Equipos[] getEq() {
+        return eq;
+    }
 
     
     

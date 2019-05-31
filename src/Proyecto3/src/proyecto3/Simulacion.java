@@ -41,4 +41,26 @@ public class Simulacion implements Serializable{
         }
         return equiposAleatorios;
     }
+    
+    public Equipos[] semifinales(){
+        Equipos [] cuartos= new Equipos[8];
+        Equipos [] semifinales= new Equipos[4];
+        Probabilidad ganadores=new Probabilidad();
+        semifinales[0]= ganadores.determinaGanador(cuartos[0], cuartos[1]);
+        semifinales[1]= ganadores.determinaGanador(cuartos[2], cuartos[3]);
+        semifinales[2]= ganadores.determinaGanador(cuartos[4], cuartos[5]);
+        semifinales[3]= ganadores.determinaGanador(cuartos[6], cuartos[7]);
+        
+        return semifinales;
+    }
+    
+    public Equipos[] partidaFinal(){
+        Equipos [] semi= new Equipos[4];
+        Equipos [] fin= new Equipos[2];
+        Probabilidad ganadores=new Probabilidad();
+        fin[0]= ganadores.determinaGanador(semi[0], semi[1]);
+        fin[1]= ganadores.determinaGanador(semi[2], semi[3]);
+       
+        return fin;
+    }
 }

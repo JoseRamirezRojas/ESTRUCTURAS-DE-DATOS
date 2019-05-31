@@ -229,6 +229,7 @@ public class RegistroUsuario extends javax.swing.JFrame implements Serializable{
     }//GEN-LAST:event_CampoContrasena2ActionPerformed
 
     private void botonCrearCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCrearCuentaActionPerformed
+        Usuario nuevoUsuario;
         if(CampoContrasena1.getPassword().length==0||CampoContrasena2.getPassword().length ==0||
         CampoUsuario.getText().isEmpty())
             JOptionPane.showMessageDialog(null, "Uno o más campos están vacíos ",
@@ -237,7 +238,7 @@ public class RegistroUsuario extends javax.swing.JFrame implements Serializable{
             JOptionPane.showMessageDialog(null, "Contraseñas no coinciden","Advertencia"
                 ,JOptionPane.ERROR_MESSAGE);
         else{
-            Usuario nuevoUsuario = new Usuario(CampoUsuario.getText(),CampoContrasena1.getText());
+            nuevoUsuario = new Usuario(CampoUsuario.getText(),CampoContrasena1.getText());
             tablaUsuarios.agregarNuevoUsuario(nuevoUsuario);
             
             try{
@@ -269,9 +270,11 @@ public class RegistroUsuario extends javax.swing.JFrame implements Serializable{
     }//GEN-LAST:event_CampoContrasena1ActionPerformed
 
     private void botonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresarActionPerformed
-        dispose();
         CalienteMx inicio=new CalienteMx();
         inicio.setVisible(true);
+        this.setVisible(false);
+        //dispose();
+
     }//GEN-LAST:event_botonRegresarActionPerformed
 
     /**
