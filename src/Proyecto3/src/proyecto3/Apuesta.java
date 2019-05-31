@@ -188,10 +188,10 @@ public class Apuesta extends javax.swing.JFrame {
     }//GEN-LAST:event_campoTeam2ActionPerformed
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-        if (campoTeam1.getText()==null && campoTeam2.getText()==null){
-            JOptionPane.showMessageDialog(null, "No has apostado por ningún equipo",
-                "Advertencia",JOptionPane.WARNING_MESSAGE);
-        }
+        //if (campoTeam1.getText()==null && campoTeam2.getText()==null) {
+          //  JOptionPane.showMessageDialog(null, "No has apostado por ningún equipo",
+            //    "Advertencia",JOptionPane.WARNING_MESSAGE);
+        //}
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     /**

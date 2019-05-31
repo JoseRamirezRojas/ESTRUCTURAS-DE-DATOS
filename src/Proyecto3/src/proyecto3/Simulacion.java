@@ -7,6 +7,9 @@ package proyecto3;
 
 import java.io.Serializable;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JLabel;
 import static proyecto3.Equipos.AMERICA;
 import static proyecto3.Equipos.CHIVAS;
 import static proyecto3.Equipos.CRUZAZUL;
@@ -42,8 +45,8 @@ public class Simulacion implements Serializable{
         return equiposAleatorios;
     }
     
-    public Equipos[] semifinales(){
-        Equipos [] cuartos= new Equipos[8];
+    public Equipos[] semifinales(Equipos [] cuartos){
+//        Equipos [] cuartos= new Equipos[8];
         Equipos [] semifinales= new Equipos[4];
         Probabilidad ganadores=new Probabilidad();
         semifinales[0]= ganadores.determinaGanador(cuartos[0], cuartos[1]);
@@ -54,8 +57,7 @@ public class Simulacion implements Serializable{
         return semifinales;
     }
     
-    public Equipos[] partidaFinal(){
-        Equipos [] semi= new Equipos[4];
+    public Equipos[] partidaFinal(Equipos [] semi){
         Equipos [] fin= new Equipos[2];
         Probabilidad ganadores=new Probabilidad();
         fin[0]= ganadores.determinaGanador(semi[0], semi[1]);
@@ -63,4 +65,30 @@ public class Simulacion implements Serializable{
        
         return fin;
     }
+    
+    public void esperarResultados(JLabel[]e1,JLabel []e2,JLabel e3){
+        for(JLabel e:e1){
+            try {
+            Thread.sleep(5000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Torneo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            e.setVisible(true);
+        }
+        for(JLabel f:e2){
+            try {
+            Thread.sleep(5000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Torneo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            f.setVisible(true);
+        }
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Torneo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            e3.setVisible(true);
+    }
+    
 }

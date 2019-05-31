@@ -14,9 +14,7 @@ public class Probabilidad implements Serializable{
     
     
     public Equipos determinaGanador(Equipos e1, Equipos e2){
-        double prob1 = e1.getHabilidad() / e1.getHabilidad() + e2.getHabilidad();
-        
-        
+        double prob1 = e1.getHabilidad() / e1.getHabilidad() + e2.getHabilidad();        
         double rand = Math.random();
         
         if(rand >= 0 && rand <= prob1){
