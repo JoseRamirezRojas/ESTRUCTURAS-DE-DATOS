@@ -5,11 +5,9 @@
  */
 package proyecto3;
 
-import java.awt.Image;
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JLabel;
 
 /**
  *
@@ -17,17 +15,17 @@ import javax.swing.JLabel;
  */
 public class Torneo extends javax.swing.JFrame implements Serializable {
     private final Simulacion sim=new Simulacion();
-    private Image imagen;
-    private static Equipos[] eq1;
-    private static Equipos[] eq2;
-    private static Equipos[] eq3;
-    private static final Probabilidad prob=new Probabilidad();
+    private final Equipos[] eq1;
+    private Equipos[] eq2;
+    private Equipos[] eq3;
+    private static final Probabilidad PROB=new Probabilidad();
     /**
      * Creates new form Torneo
+     * @throws java.lang.InterruptedException
      */
-    public Torneo() {
+    public Torneo() throws InterruptedException {
         initComponents();
-        eq1=sim.asignaEquipos();
+        eq1=sim.cuartos();
         Equipo1.setText(eq1[0].getNombre());
         Equipo2.setText(eq1[1].getNombre());
         Equipo3.setText(eq1[2].getNombre());
@@ -36,31 +34,6 @@ public class Torneo extends javax.swing.JFrame implements Serializable {
         Equipo6.setText(eq1[5].getNombre());
         Equipo7.setText(eq1[6].getNombre());
         Equipo8.setText(eq1[7].getNombre());
-        /*try {
-            Thread.sleep(5000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Torneo.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
-        eq2=sim.semifinales(eq1);
-        Equipo9.setText(eq2[0].getNombre());
-        Equipo10.setText(eq2[1].getNombre());
-        Equipo11.setText(eq2[2].getNombre());
-        Equipo12.setText(eq2[3].getNombre());
-        /*try {
-            Thread.sleep(5000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Torneo.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
-        eq3=sim.partidaFinal(eq2);
-        Equipo14.setText(eq3[0].getNombre());
-        Equipo13.setText(eq3[1].getNombre());
-        /*try {
-            Thread.sleep(5000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Torneo.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
-        Equipos campeon=prob.determinaGanador(eq3[0], eq3[1]);
-        Equipo15.setText(campeon.getNombre());
         
         Equipo9.setVisible(false);
         Equipo10.setVisible(false);
@@ -69,40 +42,15 @@ public class Torneo extends javax.swing.JFrame implements Serializable {
         Equipo13.setVisible(false);
         Equipo14.setVisible(false);
         Equipo15.setVisible(false);
-        
+       
+        /*
         JLabel[] nombresEquiposSemifinales={Equipo9,Equipo10,Equipo11,Equipo12};
         JLabel[] nombresEquiposFinales={Equipo13,Equipo14};
         
-        sim.esperarResultados(nombresEquiposSemifinales, nombresEquiposFinales, Equipo15);   
+        sim.revelaResultados(nombresEquiposSemifinales, nombresEquiposFinales, Equipo15);  
+        */
     }
     
-    public void simulaTorneo(){
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Torneo.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        eq2=sim.semifinales(eq1);
-        Equipo9.setText(eq2[0].getNombre());
-        Equipo10.setText(eq2[1].getNombre());
-        Equipo11.setText(eq2[2].getNombre());
-        Equipo12.setText(eq2[3].getNombre());
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Torneo.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        eq3=sim.partidaFinal(eq2);
-        Equipo14.setText(eq3[0].getNombre());
-        Equipo13.setText(eq3[1].getNombre());
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Torneo.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        Equipos campeon=prob.determinaGanador(eq3[0], eq3[1]);
-        Equipo15.setText(campeon.getNombre());
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -164,8 +112,13 @@ public class Torneo extends javax.swing.JFrame implements Serializable {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        botonApostar2.setText("jButton1");
-        getContentPane().add(botonApostar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 260, -1, -1));
+        botonApostar2.setText("Apostar");
+        botonApostar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonApostar2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(botonApostar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, 70, -1));
 
         botonApostar1.setText("Apostar");
         botonApostar1.addActionListener(new java.awt.event.ActionListener() {
@@ -173,16 +126,16 @@ public class Torneo extends javax.swing.JFrame implements Serializable {
                 botonApostar1ActionPerformed(evt);
             }
         });
-        getContentPane().add(botonApostar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, -1, -1));
+        getContentPane().add(botonApostar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, -1, -1));
 
         Equipo15.setText("jLabel15");
         getContentPane().add(Equipo15, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 210, -1, -1));
 
         Equipo14.setText("jLabel13");
-        getContentPane().add(Equipo14, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 150, -1, -1));
+        getContentPane().add(Equipo14, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 150, -1, -1));
 
         Equipo13.setText("jLabel12");
-        getContentPane().add(Equipo13, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 150, -1, -1));
+        getContentPane().add(Equipo13, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 150, -1, -1));
 
         Equipo10.setText("jLabel14");
         getContentPane().add(Equipo10, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 250, -1, -1));
@@ -191,22 +144,22 @@ public class Torneo extends javax.swing.JFrame implements Serializable {
         getContentPane().add(Equipo9, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 80, -1, -1));
 
         Equipo12.setText("jLabel9");
-        getContentPane().add(Equipo12, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 250, -1, -1));
+        getContentPane().add(Equipo12, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 250, -1, -1));
 
         Equipo11.setText("jLabel16");
-        getContentPane().add(Equipo11, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 80, -1, -1));
+        getContentPane().add(Equipo11, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, -1, -1));
 
         Equipo8.setText("jLabel7");
-        getContentPane().add(Equipo8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, -1, -1));
+        getContentPane().add(Equipo8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, -1, -1));
 
         Equipo7.setText("jLabel6");
-        getContentPane().add(Equipo7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, -1, -1));
+        getContentPane().add(Equipo7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, -1, -1));
 
         Equipo6.setText("jLabel17");
-        getContentPane().add(Equipo6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, 20));
+        getContentPane().add(Equipo6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, 20));
 
         Equipo5.setText("jLabel8");
-        getContentPane().add(Equipo5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+        getContentPane().add(Equipo5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
 
         Equipo4.setText("jLabel10");
         getContentPane().add(Equipo4, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 300, -1, -1));
@@ -252,6 +205,42 @@ public class Torneo extends javax.swing.JFrame implements Serializable {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    private void semifinales() throws InterruptedException{
+        eq2=sim.semifinales(eq1);
+        Equipo9.setText(eq2[0].getNombre());
+        Equipo10.setText(eq2[1].getNombre());
+        Equipo11.setText(eq2[2].getNombre());
+        Equipo12.setText(eq2[3].getNombre());
+        System.out.println("webos jasso");
+        Equipo9.setVisible(true);
+        Equipo10.setVisible(true);
+        Equipo11.setVisible(true);
+        Equipo12.setVisible(true);
+    }
+    
+    /**
+     * 
+     * @throws InterruptedException 
+     */
+    private void ultimoPartido() throws InterruptedException{
+        eq3=sim.partidaFinal(eq2);
+        Equipo14.setText(eq3[0].getNombre());
+        Equipo13.setText(eq3[1].getNombre());
+        Equipo13.setVisible(true);
+        Equipo14.setVisible(true);
+                System.out.println("webos jasso");
+
+    }
+    
+    private void campeon() throws InterruptedException{
+        Equipos campeon=PROB.determinaGanador(eq3[0], eq3[1]);
+        Equipo15.setText(campeon.getNombre());
+        Equipo15.setVisible(true);
+        System.out.println("webos jasso");
+        
+    }
+    
     private void botonApostar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonApostar1ActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
@@ -259,9 +248,19 @@ public class Torneo extends javax.swing.JFrame implements Serializable {
         a.setVisible(true);
     }//GEN-LAST:event_botonApostar1ActionPerformed
 
-    //public static Equipos[] getEq() {
-      //  return eq;
-    //}
+    private void botonApostar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonApostar2ActionPerformed
+        this.setVisible(false);
+        Apuesta a=new Apuesta();
+        a.setVisible(true);
+    }//GEN-LAST:event_botonApostar2ActionPerformed
+
+    public void iniciaTorneo() throws InterruptedException {
+        System.out.println("webos jasso");
+
+        semifinales();
+        ultimoPartido();
+        campeon();
+    }
 
     
     
@@ -292,11 +291,15 @@ public class Torneo extends javax.swing.JFrame implements Serializable {
             java.util.logging.Logger.getLogger(Torneo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
+        System.out.println();
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+        java.awt.EventQueue.invokeLater(() -> {
+            try {
                 new Torneo().setVisible(true);
+                
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Torneo.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
     }

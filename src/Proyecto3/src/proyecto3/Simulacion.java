@@ -7,8 +7,6 @@ package proyecto3;
 
 import java.io.Serializable;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JLabel;
 import static proyecto3.Equipos.AMERICA;
 import static proyecto3.Equipos.CHIVAS;
@@ -27,7 +25,7 @@ public class Simulacion implements Serializable{
     public Simulacion(){
     }
     
-    public Equipos[] asignaEquipos(){
+    public Equipos[] cuartos(){
         Equipos[] equipos;
         equipos = new Equipos[]{AMERICA,CRUZAZUL,CHIVAS,PUMAS,LEON,TIGRES,
             MONTERREY,TIBURONES};
@@ -45,7 +43,7 @@ public class Simulacion implements Serializable{
         return equiposAleatorios;
     }
     
-    public Equipos[] semifinales(Equipos [] cuartos){
+    public Equipos[] semifinales(Equipos [] cuartos) throws InterruptedException{
 //        Equipos [] cuartos= new Equipos[8];
         Equipos [] semifinales= new Equipos[4];
         Probabilidad ganadores=new Probabilidad();
@@ -57,7 +55,7 @@ public class Simulacion implements Serializable{
         return semifinales;
     }
     
-    public Equipos[] partidaFinal(Equipos [] semi){
+    public Equipos[] partidaFinal(Equipos [] semi) throws InterruptedException{
         Equipos [] fin= new Equipos[2];
         Probabilidad ganadores=new Probabilidad();
         fin[0]= ganadores.determinaGanador(semi[0], semi[1]);
@@ -66,29 +64,20 @@ public class Simulacion implements Serializable{
         return fin;
     }
     
-    public void esperarResultados(JLabel[]e1,JLabel []e2,JLabel e3){
+    /**
+     *
+     * @param e1
+     * @param e2
+     * @param e3
+     */
+    public void revelaResultados(JLabel[]e1,JLabel []e2,JLabel e3){
         for(JLabel e:e1){
-            try {
-            Thread.sleep(5000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Torneo.class.getName()).log(Level.SEVERE, null, ex);
-        }
             e.setVisible(true);
         }
         for(JLabel f:e2){
-            try {
-            Thread.sleep(5000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Torneo.class.getName()).log(Level.SEVERE, null, ex);
-        }
             f.setVisible(true);
         }
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Torneo.class.getName()).log(Level.SEVERE, null, ex);
-        }
-            e3.setVisible(true);
+        e3.setVisible(true);
     }
     
 }

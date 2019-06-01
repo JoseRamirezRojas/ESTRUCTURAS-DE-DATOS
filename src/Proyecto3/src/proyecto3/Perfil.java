@@ -6,6 +6,8 @@
 package proyecto3;
 
 import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -190,7 +192,12 @@ public class Perfil extends javax.swing.JFrame implements Serializable{
 
     private void botonApostarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonApostarActionPerformed
         dispose();
-        Torneo t=new Torneo();
+        Torneo t = null;
+        try {
+            t = new Torneo();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Perfil.class.getName()).log(Level.SEVERE, null, ex);
+        }
         t.setVisible(true);
         
         // TODO add your handling code here:

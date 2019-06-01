@@ -13,17 +13,22 @@ public class Probabilidad implements Serializable{
     }
     
     
-    public Equipos determinaGanador(Equipos e1, Equipos e2){
+    public Equipos determinaGanador(Equipos e1, Equipos e2) throws InterruptedException{
         double prob1 = e1.getHabilidad() / e1.getHabilidad() + e2.getHabilidad();        
+        double prob2 = e2.getHabilidad() / e1.getHabilidad() + e2.getHabilidad();        
         double rand = Math.random();
         
-        if(rand >= 0 && rand <= prob1){
+        Thread.sleep(2000);
+        if(prob2>prob1){
+            if(rand>=0&&rand<=prob2){
+                return e2;
+            }
             return e1;
         }
-        return e2;
-        
-        
-        
+        if(rand>=0&&rand<=prob1){
+            return e1;
+        }
+        return e2; 
         
     }
     

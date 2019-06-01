@@ -188,10 +188,13 @@ public class Apuesta extends javax.swing.JFrame {
     }//GEN-LAST:event_campoTeam2ActionPerformed
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
-        //if (campoTeam1.getText()==null && campoTeam2.getText()==null) {
-          //  JOptionPane.showMessageDialog(null, "No has apostado por ningún equipo",
-            //    "Advertencia",JOptionPane.WARNING_MESSAGE);
-        //}
+        if (campoTeam1.getText()==null && campoTeam2.getText()==null) {
+            JOptionPane.showMessageDialog(null, "No has apostado por ningún equipo",
+                "Advertencia",JOptionPane.WARNING_MESSAGE);
+        }
+        //if(campoTeam1.getText()!=null && campoTeam2.getText()==null){
+//            campoTeam1.
+  //      }
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     /**
@@ -202,7 +205,7 @@ public class Apuesta extends javax.swing.JFrame {
      * @param e3
      * @return 
      */
-    public float ganancia(float apuesta,Equipos e1,Equipos e2,Equipos e3){
+    public float ganancia(float apuesta,Equipos e1,Equipos e2,Equipos e3) throws InterruptedException{
         if (prob.determinaGanador(e1,e2).getNombre().equals(e1.getNombre()) && 
                 e3.getNombre().equals(prob.determinaGanador(e1,e2).getNombre()))
             return (float) (apuesta * prob.cuotaDecimal1(e1, e2));
