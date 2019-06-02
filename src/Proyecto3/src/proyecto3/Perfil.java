@@ -15,13 +15,18 @@ import javax.swing.JOptionPane;
  * @author pepew
  */
 public class Perfil extends javax.swing.JFrame implements Serializable{
-
+    
+    Usuario user;
+    
     /**
      * Creates new form Perfil
+     * @param user
      */
-    public Perfil() {
+    public Perfil(Usuario user) {
         initComponents();
-        //jLabel1.setText(string);
+        this.user=user;
+        bienvenida.setText("Bienvenido "+user.getNombre());
+        saldo.setText("Tu saldo es: $"+user.getSaldo());
     }
 
     /**
@@ -40,12 +45,13 @@ public class Perfil extends javax.swing.JFrame implements Serializable{
         jFrame1 = new javax.swing.JFrame();
         jDialog4 = new javax.swing.JDialog();
         botonCerrarSesion = new javax.swing.JButton();
-        botonApostar = new javax.swing.JButton();
+        botonabonarSaldo = new javax.swing.JButton();
         botonHistorial = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         perfil = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        botonabonarSaldo = new javax.swing.JButton();
+        bienvenida = new javax.swing.JLabel();
+        botonApostar = new javax.swing.JButton();
+        saldo = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
         jDialog1.getContentPane().setLayout(jDialog1Layout);
@@ -113,10 +119,10 @@ public class Perfil extends javax.swing.JFrame implements Serializable{
             }
         });
 
-        botonApostar.setText("Apuesta ahora");
-        botonApostar.addActionListener(new java.awt.event.ActionListener() {
+        botonabonarSaldo.setText("Abonar saldo");
+        botonabonarSaldo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonApostarActionPerformed(evt);
+                botonabonarSaldoActionPerformed(evt);
             }
         });
 
@@ -127,76 +133,91 @@ public class Perfil extends javax.swing.JFrame implements Serializable{
             }
         });
 
-        jPanel1.setBackground(new java.awt.Color(255, 102, 51));
+        jPanel1.setBackground(new java.awt.Color(255, 69, 27));
         jPanel1.setForeground(new java.awt.Color(255, 153, 0));
 
         perfil.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         perfil.setText("PERFIL");
+
+        bienvenida.setFont(new java.awt.Font("Segoe UI Semibold", 1, 24)); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(perfil)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(perfil))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(93, 93, 93)
+                        .addComponent(bienvenida)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(39, 39, 39)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(perfil)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addComponent(bienvenida)
+                .addContainerGap())
         );
 
-        jLabel1.setText("jLabel1");
-
-        botonabonarSaldo.setText("Abonar Saldo");
-        botonabonarSaldo.addActionListener(new java.awt.event.ActionListener() {
+        botonApostar.setText("Apuesta ahora");
+        botonApostar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonabonarSaldoActionPerformed(evt);
+                botonApostarActionPerformed(evt);
             }
         });
+
+        saldo.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        saldo.setText("jLabel1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(botonApostar)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(botonHistorial, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(47, 47, 47)
-                                .addComponent(botonabonarSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(45, 45, 45)
-                        .addComponent(botonCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 153, Short.MAX_VALUE)
+                                .addComponent(botonCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(140, 140, 140)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(botonApostar)
+                                    .addComponent(botonabonarSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(29, 29, 29)
+                                .addComponent(saldo)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(230, 230, 230)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(saldo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
                 .addComponent(botonApostar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(27, 27, 27)
+                .addComponent(botonabonarSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonHistorial, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botonabonarSaldo))
-                .addGap(27, 27, 27))
+                    .addComponent(botonHistorial, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30))
         );
 
         pack();
@@ -204,76 +225,44 @@ public class Perfil extends javax.swing.JFrame implements Serializable{
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonApostarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonApostarActionPerformed
-        dispose();
-        Torneo t = null;
+        this.setVisible(false);
+        Torneo t;
         try {
-            t = new Torneo();
+            t = new Torneo(user);
+            t.setVisible(true);
+            t.iniciaTorneo();
         } catch (InterruptedException ex) {
             Logger.getLogger(Perfil.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        t.setVisible(true);
-        
-        // TODO add your handling code here:
+        }        
     }//GEN-LAST:event_botonApostarActionPerformed
 
     private void botonHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonHistorialActionPerformed
-        // TODO add your handling code here:
         //jLabel1.setText(historial);
-        
+        JOptionPane.showMessageDialog(null, "HISTORIAL DE LA CUENTA:\n"+
+                user.getHistorial(),"Historial",JOptionPane.INFORMATION_MESSAGE); 
     }//GEN-LAST:event_botonHistorialActionPerformed
 
     private void botonCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCerrarSesionActionPerformed
-        // TODO add your handling code here:
-        this.setVisible(false);
+        dispose();
+        CalienteMx c=new CalienteMx();
+        c.setVisible(true);
     }//GEN-LAST:event_botonCerrarSesionActionPerformed
 
     private void botonabonarSaldoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonabonarSaldoActionPerformed
-        // TODO add your handling code here:
+        dispose();
         double abono;
-        abono = Double.parseDouble( JOptionPane.showInputDialog(null, "Ingrese la cantidad a abonar a su saldo" ));
-        float abono2;
-        abono2 = (float)abono;
-        System.out.println(abono2);
+        System.out.println(user.getSaldo());
+        abono = Double.parseDouble( JOptionPane.showInputDialog(null,
+                "Ingrese la cantidad a abonar a su saldo","Abonar saldo",
+                JOptionPane.QUESTION_MESSAGE ));
+        user.setSaldo((float)user.getSaldo()+(float)abono);
+        Perfil p=new Perfil(user);
+        p.setVisible(true);
         
     }//GEN-LAST:event_botonabonarSaldoActionPerformed
 
-    /*
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Perfil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Perfil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Perfil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Perfil.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Perfil().setVisible(true);
-            }
-        });
-        
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel bienvenida;
     private javax.swing.JButton botonApostar;
     private javax.swing.JButton botonCerrarSesion;
     private javax.swing.JButton botonHistorial;
@@ -284,8 +273,8 @@ public class Perfil extends javax.swing.JFrame implements Serializable{
     private javax.swing.JDialog jDialog3;
     private javax.swing.JDialog jDialog4;
     private javax.swing.JFrame jFrame1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel perfil;
+    private javax.swing.JLabel saldo;
     // End of variables declaration//GEN-END:variables
 }

@@ -6,6 +6,7 @@
 package proyecto3;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -118,7 +119,7 @@ public class Torneo extends javax.swing.JFrame implements Serializable {
         });
         jScrollPane1.setViewportView(jList1);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Torneo");
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -379,6 +380,7 @@ public class Torneo extends javax.swing.JFrame implements Serializable {
     }//GEN-LAST:event_botonApostar7ActionPerformed
 
     public void iniciaTorneo() throws InterruptedException {
+        this.setVisible(true);     
         semifinales();
         ultimoPartido();
         campeon();

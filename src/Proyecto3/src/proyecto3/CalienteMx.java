@@ -35,10 +35,10 @@ public class CalienteMx extends javax.swing.JFrame implements Serializable{
             o.close();
             */
                 
-            ObjectInputStream recuperando_fichero= new ObjectInputStream
+            ObjectInputStream l= new ObjectInputStream
                 (new FileInputStream("C:\\Users\\pepew\\Desktop\\Test3.txt"));
-            tablaUsuarios =(TablaUsuarios )recuperando_fichero.readObject();
-            recuperando_fichero.close();
+            tablaUsuarios =(TablaUsuarios )l.readObject();
+            l.close();
         }
         catch(IOException e){
             System.out.println(e.getMessage());
