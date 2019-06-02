@@ -26,17 +26,17 @@ public class CalienteMx extends javax.swing.JFrame implements Serializable{
     public CalienteMx() {
         initComponents();
         tablaUsuarios = new TablaUsuarios();
-
-        //se esta comentadndo para poder leer la base y no crear una nueva
-         //base = new Base();
+;
         try{   
-             
-            //ObjectOutputStream escribiendo_fichero = new ObjectOutputStream(new FileOutputStream("/home/nestor2502/Escritorio/Test1.txt"));
-            //ObjectOutputStream escribiendo_fichero = new ObjectOutputStream(new FileOutputStream("C:\\Users\\pepew\\Desktop\\Test2.txt"));
-            //escribiendo_fichero.writeObject(tablaUsuarios);
-            //escribiendo_fichero.close();
+            /* 
+            ObjectOutputStream o = new ObjectOutputStream
+                (new FileOutputStream("C:\\Users\\pepew\\Desktop\\Test3.txt"));
+            o.writeObject(tablaUsuarios);
+            o.close();
+            */
                 
-            ObjectInputStream recuperando_fichero= new ObjectInputStream(new FileInputStream("C:\\Users\\pepew\\Desktop\\Test2.txt"));
+            ObjectInputStream recuperando_fichero= new ObjectInputStream
+                (new FileInputStream("C:\\Users\\pepew\\Desktop\\Test3.txt"));
             tablaUsuarios =(TablaUsuarios )recuperando_fichero.readObject();
             recuperando_fichero.close();
         }
@@ -174,7 +174,7 @@ public class CalienteMx extends javax.swing.JFrame implements Serializable{
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(botonIngresar)
-                .addGap(121, 121, 121))
+                .addGap(128, 128, 128))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -191,9 +191,9 @@ public class CalienteMx extends javax.swing.JFrame implements Serializable{
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(campoContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(7, 7, 7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(botonIngresar)
-                .addGap(33, 33, 33)
+                .addGap(29, 29, 29)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(botonRegistrarse)
@@ -205,7 +205,7 @@ public class CalienteMx extends javax.swing.JFrame implements Serializable{
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonRegistrarseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistrarseActionPerformed
-        dispose();
+        this.setVisible(false);
         RegistroUsuario r = new RegistroUsuario();
         RegistroUsuario.setTablaUsuarios(tablaUsuarios);
         r.setVisible(true);
@@ -218,7 +218,7 @@ public class CalienteMx extends javax.swing.JFrame implements Serializable{
                 "Advertencia",JOptionPane.ERROR_MESSAGE);                
         else if (tablaUsuarios.obtenerUsuario(campoUsuario.getText())!=null) {
             dispose();
-            Perfil perfil=new Perfil();
+            Perfil perfil=new Perfil(tablaUsuarios.obtenerUsuario(campoUsuario.getText()));
             perfil.setVisible(true);
             //Usuario ingreso = tablaUsuarios.obtenerUsuario(campoUsuario.getText().trim());             
         }

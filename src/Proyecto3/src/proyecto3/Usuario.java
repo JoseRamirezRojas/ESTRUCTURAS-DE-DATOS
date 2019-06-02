@@ -19,9 +19,10 @@ public class Usuario implements Serializable {
     public Usuario(String nombre, String contrasena) {
         this.nombre = nombre;
         this.contrasena = contrasena;
-        saldo = 0;
+        saldo = 100;
         historial=" ";
     }
+    
     
     /**
      * 
@@ -47,6 +48,11 @@ public class Usuario implements Serializable {
         return saldo;
     }
 
+    public String getHistorial() {
+        return historial;
+    }
+
+    
     /**
      * 
      * @param nombre Nombre a establecer del usuario.

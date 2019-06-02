@@ -19,12 +19,15 @@ public class Torneo extends javax.swing.JFrame implements Serializable {
     private Equipos[] eq2;
     private Equipos[] eq3;
     private static final Probabilidad PROB=new Probabilidad();
+    Usuario user;
     /**
      * Creates new form Torneo
+     * @param user
      * @throws java.lang.InterruptedException
      */
-    public Torneo() throws InterruptedException {
+    public Torneo(Usuario user) throws InterruptedException {
         initComponents();
+        this.user=user;
         eq1=sim.cuartos();
         Equipo1.setText(eq1[0].getNombre());
         Equipo2.setText(eq1[1].getNombre());
@@ -42,13 +45,15 @@ public class Torneo extends javax.swing.JFrame implements Serializable {
         Equipo13.setVisible(false);
         Equipo14.setVisible(false);
         Equipo15.setVisible(false);
-       
-        /*
-        JLabel[] nombresEquiposSemifinales={Equipo9,Equipo10,Equipo11,Equipo12};
-        JLabel[] nombresEquiposFinales={Equipo13,Equipo14};
         
-        sim.revelaResultados(nombresEquiposSemifinales, nombresEquiposFinales, Equipo15);  
-        */
+        botonApostar1.setVisible(true);
+        botonApostar2.setVisible(true);
+        botonApostar3.setVisible(true);
+        botonApostar4.setVisible(true);
+        botonApostar5.setVisible(false);
+        botonApostar6.setVisible(false);
+        botonApostar7.setVisible(false);
+       
     }
     
 
@@ -65,6 +70,9 @@ public class Torneo extends javax.swing.JFrame implements Serializable {
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
         jSeparator3 = new javax.swing.JSeparator();
+        botonApostar5 = new javax.swing.JToggleButton();
+        botonApostar4 = new javax.swing.JToggleButton();
+        botonApostar3 = new javax.swing.JToggleButton();
         botonApostar2 = new javax.swing.JButton();
         botonApostar1 = new javax.swing.JButton();
         Equipo15 = new javax.swing.JLabel();
@@ -83,11 +91,14 @@ public class Torneo extends javax.swing.JFrame implements Serializable {
         Equipo2 = new javax.swing.JLabel();
         Equipo1 = new javax.swing.JLabel();
         botonRegresar = new javax.swing.JButton();
+        botonApostar6 = new javax.swing.JToggleButton();
+        botonApostar7 = new javax.swing.JToggleButton();
         Bracket = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
+        jToggleButton1 = new javax.swing.JToggleButton();
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
@@ -112,13 +123,37 @@ public class Torneo extends javax.swing.JFrame implements Serializable {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        botonApostar5.setText("Apostar");
+        botonApostar5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonApostar5ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(botonApostar5, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 160, -1, -1));
+
+        botonApostar4.setText("Apostar");
+        botonApostar4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonApostar4ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(botonApostar4, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 260, 80, -1));
+
+        botonApostar3.setText("Apostar");
+        botonApostar3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonApostar3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(botonApostar3, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 60, 80, -1));
+
         botonApostar2.setText("Apostar");
         botonApostar2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonApostar2ActionPerformed(evt);
             }
         });
-        getContentPane().add(botonApostar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, 70, -1));
+        getContentPane().add(botonApostar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, 80, -1));
 
         botonApostar1.setText("Apostar");
         botonApostar1.addActionListener(new java.awt.event.ActionListener() {
@@ -126,57 +161,92 @@ public class Torneo extends javax.swing.JFrame implements Serializable {
                 botonApostar1ActionPerformed(evt);
             }
         });
-        getContentPane().add(botonApostar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, -1, -1));
+        getContentPane().add(botonApostar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(41, 60, 80, -1));
 
         Equipo15.setText("jLabel15");
+        Equipo15.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         getContentPane().add(Equipo15, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 210, -1, -1));
 
         Equipo14.setText("jLabel13");
-        getContentPane().add(Equipo14, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 150, -1, -1));
+        Equipo14.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        getContentPane().add(Equipo14, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 140, -1, -1));
 
         Equipo13.setText("jLabel12");
-        getContentPane().add(Equipo13, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 150, -1, -1));
+        Equipo13.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        getContentPane().add(Equipo13, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 140, -1, -1));
 
         Equipo10.setText("jLabel14");
+        Equipo10.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         getContentPane().add(Equipo10, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 250, -1, -1));
 
         Equipo9.setText("jLabel11");
+        Equipo9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         getContentPane().add(Equipo9, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 80, -1, -1));
 
         Equipo12.setText("jLabel9");
+        Equipo12.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         getContentPane().add(Equipo12, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 250, -1, -1));
 
         Equipo11.setText("jLabel16");
+        Equipo11.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         getContentPane().add(Equipo11, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, -1, -1));
 
         Equipo8.setText("jLabel7");
+        Equipo8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         getContentPane().add(Equipo8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, -1, -1));
 
         Equipo7.setText("jLabel6");
+        Equipo7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         getContentPane().add(Equipo7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, -1, -1));
 
         Equipo6.setText("jLabel17");
+        Equipo6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         getContentPane().add(Equipo6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, -1, 20));
 
         Equipo5.setText("jLabel8");
+        Equipo5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         getContentPane().add(Equipo5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
 
         Equipo4.setText("jLabel10");
+        Equipo4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         getContentPane().add(Equipo4, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 300, -1, -1));
 
         Equipo3.setText("jLabel5");
+        Equipo3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         getContentPane().add(Equipo3, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 220, -1, -1));
 
         Equipo2.setText("jLabel4");
+        Equipo2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         getContentPane().add(Equipo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 100, -1, -1));
 
         Equipo1.setBackground(new java.awt.Color(102, 0, 102));
-        Equipo1.setText(" EQUIPO 1");
-        Equipo1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        Equipo1.setText("jLabel1");
+        Equipo1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         getContentPane().add(Equipo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 20, -1, -1));
 
         botonRegresar.setText("Regresar");
-        getContentPane().add(botonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 160, 80, -1));
+        botonRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonRegresarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(botonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 160, 100, -1));
+
+        botonApostar6.setText("Apostar");
+        botonApostar6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonApostar6ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(botonApostar6, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 160, -1, -1));
+
+        botonApostar7.setText("Apostar");
+        botonApostar7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonApostar7ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(botonApostar7, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 160, 80, -1));
 
         Bracket.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Resources/bracket.png"))); // NOI18N
         getContentPane().add(Bracket, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, -1, 360));
@@ -185,7 +255,7 @@ public class Torneo extends javax.swing.JFrame implements Serializable {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 98, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -201,6 +271,9 @@ public class Torneo extends javax.swing.JFrame implements Serializable {
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 10, -1, 360));
         getContentPane().add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 12, -1, 340));
 
+        jToggleButton1.setText("jToggleButton1");
+        getContentPane().add(jToggleButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, -1, -1));
+
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
@@ -212,11 +285,18 @@ public class Torneo extends javax.swing.JFrame implements Serializable {
         Equipo10.setText(eq2[1].getNombre());
         Equipo11.setText(eq2[2].getNombre());
         Equipo12.setText(eq2[3].getNombre());
-        System.out.println("webos jasso");
+        
         Equipo9.setVisible(true);
         Equipo10.setVisible(true);
         Equipo11.setVisible(true);
         Equipo12.setVisible(true);
+        
+        botonApostar1.setVisible(false);
+        botonApostar2.setVisible(false);
+        botonApostar3.setVisible(false);
+        botonApostar4.setVisible(false);
+        botonApostar5.setVisible(true);
+        botonApostar6.setVisible(true);
     }
     
     /**
@@ -225,84 +305,84 @@ public class Torneo extends javax.swing.JFrame implements Serializable {
      */
     private void ultimoPartido() throws InterruptedException{
         eq3=sim.partidaFinal(eq2);
-        Equipo14.setText(eq3[0].getNombre());
         Equipo13.setText(eq3[1].getNombre());
+        Equipo14.setText(eq3[0].getNombre());
+        
         Equipo13.setVisible(true);
         Equipo14.setVisible(true);
-                System.out.println("webos jasso");
-
+        
+        botonApostar5.setVisible(false);
+        botonApostar6.setVisible(false);
+        botonApostar7.setVisible(true);
     }
     
     private void campeon() throws InterruptedException{
         Equipos campeon=PROB.determinaGanador(eq3[0], eq3[1]);
         Equipo15.setText(campeon.getNombre());
         Equipo15.setVisible(true);
-        System.out.println("webos jasso");
+        
+        botonApostar7.setVisible(false);
+    }
+    
+    private void limpiar(){
         
     }
     
+    private void repetir() throws InterruptedException{
+        if (!Equipo15.getText().equals("")){
+            Thread.sleep(6000);
+            this.setVisible(false);
+            
+        }
+    }
+    
     private void botonApostar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonApostar1ActionPerformed
-        // TODO add your handling code here:
-        this.setVisible(false);
-        Apuesta a=new Apuesta();
+        //this.setVisible(false);
+        Apuesta a=new Apuesta(eq1[4],eq1[5]);
         a.setVisible(true);
     }//GEN-LAST:event_botonApostar1ActionPerformed
 
     private void botonApostar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonApostar2ActionPerformed
-        this.setVisible(false);
-        Apuesta a=new Apuesta();
+        Apuesta a=new Apuesta(eq1[6],eq1[7]);
         a.setVisible(true);
     }//GEN-LAST:event_botonApostar2ActionPerformed
 
-    public void iniciaTorneo() throws InterruptedException {
-        System.out.println("webos jasso");
+    private void botonApostar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonApostar4ActionPerformed
+        Apuesta a=new Apuesta(eq1[2],eq1[3]);
+        a.setVisible(true);
+    }//GEN-LAST:event_botonApostar4ActionPerformed
 
+    private void botonApostar5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonApostar5ActionPerformed
+        Apuesta a=new Apuesta(eq2[2],eq2[3]);
+        a.setVisible(true);
+    }//GEN-LAST:event_botonApostar5ActionPerformed
+
+    private void botonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresarActionPerformed
+        this.setVisible(false);
+        Perfil p=new Perfil(user);
+        p.setVisible(true);
+    }//GEN-LAST:event_botonRegresarActionPerformed
+
+    private void botonApostar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonApostar3ActionPerformed
+        Apuesta a=new Apuesta(eq1[0],eq1[1]);
+        a.setVisible(true);
+    }//GEN-LAST:event_botonApostar3ActionPerformed
+
+    private void botonApostar6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonApostar6ActionPerformed
+        Apuesta a=new Apuesta(eq2[0],eq2[1]);
+        a.setVisible(true);
+    }//GEN-LAST:event_botonApostar6ActionPerformed
+
+    private void botonApostar7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonApostar7ActionPerformed
+        Apuesta a=new Apuesta(eq3[0],eq3[1]);
+        a.setVisible(true);
+    }//GEN-LAST:event_botonApostar7ActionPerformed
+
+    public void iniciaTorneo() throws InterruptedException {
         semifinales();
         ultimoPartido();
         campeon();
-    }
-
-    
-    
-    
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Torneo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Torneo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Torneo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Torneo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        
-        System.out.println();
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            try {
-                new Torneo().setVisible(true);
-                
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Torneo.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        });
-    }
+    }    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Bracket;
@@ -323,6 +403,11 @@ public class Torneo extends javax.swing.JFrame implements Serializable {
     private javax.swing.JLabel Equipo9;
     private javax.swing.JButton botonApostar1;
     private javax.swing.JButton botonApostar2;
+    private javax.swing.JToggleButton botonApostar3;
+    private javax.swing.JToggleButton botonApostar4;
+    private javax.swing.JToggleButton botonApostar5;
+    private javax.swing.JToggleButton botonApostar6;
+    private javax.swing.JToggleButton botonApostar7;
     private javax.swing.JButton botonRegresar;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel3;
@@ -332,5 +417,6 @@ public class Torneo extends javax.swing.JFrame implements Serializable {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JToggleButton jToggleButton1;
     // End of variables declaration//GEN-END:variables
 }

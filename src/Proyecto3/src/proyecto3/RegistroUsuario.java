@@ -29,7 +29,8 @@ public class RegistroUsuario extends javax.swing.JFrame implements Serializable{
         initComponents();
 
         try{
-            ObjectInputStream m=new ObjectInputStream(new FileInputStream("C:\\Users\\pepew\\Desktop\\Test2.txt"));
+            ObjectInputStream m=new ObjectInputStream(new FileInputStream
+                ("C:\\Users\\pepew\\Desktop\\Test3.txt"));
             tablaUsuarios=(TablaUsuarios)m.readObject();
             
             m.close();
@@ -243,7 +244,8 @@ public class RegistroUsuario extends javax.swing.JFrame implements Serializable{
             
             try{
                 
-                ObjectOutputStream o=new ObjectOutputStream(new FileOutputStream("C:\\Users\\pepew\\Desktop\\Test2.txt"));
+                ObjectOutputStream o=new ObjectOutputStream(new FileOutputStream
+                    ("C:\\Users\\pepew\\Desktop\\Test3.txt"));
                 o.writeObject(tablaUsuarios);
                 o.close();
             

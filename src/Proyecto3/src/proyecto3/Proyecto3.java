@@ -14,10 +14,9 @@ public class Proyecto3 implements Serializable{
      */
     public static void main(String[] args) throws InterruptedException {
         // TODO code application logic here
-        System.out.println("webos jasso");        
-        Torneo t=new Torneo();
+        Usuario u=new Usuario("pp","123");
+        Torneo t=new Torneo(u);
         t.setVisible(true);
-        System.out.println("webos jasso");        
         t.iniciaTorneo();
     }
     
