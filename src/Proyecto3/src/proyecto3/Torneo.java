@@ -6,7 +6,6 @@
 package proyecto3;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -15,12 +14,13 @@ import java.util.logging.Logger;
  * @author pepew
  */
 public class Torneo extends javax.swing.JFrame implements Serializable {
-    private final Simulacion sim=new Simulacion();
+    private final Simulacion SIM=new Simulacion();
     private final Equipos[] eq1;
     private Equipos[] eq2;
     private Equipos[] eq3;
     private static final Probabilidad PROB=new Probabilidad();
     Usuario user;
+    
     /**
      * Creates new form Torneo
      * @param user
@@ -28,8 +28,9 @@ public class Torneo extends javax.swing.JFrame implements Serializable {
      */
     public Torneo(Usuario user) throws InterruptedException {
         initComponents();
+        this.setVisible(false);
         this.user=user;
-        eq1=sim.cuartos();
+        eq1=SIM.cuartos();
         Equipo1.setText(eq1[0].getNombre());
         Equipo2.setText(eq1[1].getNombre());
         Equipo3.setText(eq1[2].getNombre());
@@ -119,7 +120,7 @@ public class Torneo extends javax.swing.JFrame implements Serializable {
         });
         jScrollPane1.setViewportView(jList1);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Torneo");
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -280,8 +281,8 @@ public class Torneo extends javax.swing.JFrame implements Serializable {
     }// </editor-fold>//GEN-END:initComponents
 
     
-    private void semifinales() throws InterruptedException{
-        eq2=sim.semifinales(eq1);
+    public void semifinales() throws InterruptedException{
+        eq2=SIM.semifinales(eq1);
         Equipo9.setText(eq2[0].getNombre());
         Equipo10.setText(eq2[1].getNombre());
         Equipo11.setText(eq2[2].getNombre());
@@ -304,8 +305,8 @@ public class Torneo extends javax.swing.JFrame implements Serializable {
      * 
      * @throws InterruptedException 
      */
-    private void ultimoPartido() throws InterruptedException{
-        eq3=sim.partidaFinal(eq2);
+    public void ultimoPartido() throws InterruptedException{
+        eq3=SIM.partidaFinal(eq2);
         Equipo13.setText(eq3[1].getNombre());
         Equipo14.setText(eq3[0].getNombre());
         
@@ -317,16 +318,12 @@ public class Torneo extends javax.swing.JFrame implements Serializable {
         botonApostar7.setVisible(true);
     }
     
-    private void campeon() throws InterruptedException{
+    public void campeon() throws InterruptedException{
         Equipos campeon=PROB.determinaGanador(eq3[0], eq3[1]);
         Equipo15.setText(campeon.getNombre());
         Equipo15.setVisible(true);
         
         botonApostar7.setVisible(false);
-    }
-    
-    private void limpiar(){
-        
     }
     
     private void repetir() throws InterruptedException{
@@ -339,53 +336,52 @@ public class Torneo extends javax.swing.JFrame implements Serializable {
     
     private void botonApostar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonApostar1ActionPerformed
         //this.setVisible(false);
-        Apuesta a=new Apuesta(eq1[4],eq1[5]);
+        Apuesta a=new Apuesta(user,eq1[4],eq1[5]);
         a.setVisible(true);
     }//GEN-LAST:event_botonApostar1ActionPerformed
 
     private void botonApostar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonApostar2ActionPerformed
-        Apuesta a=new Apuesta(eq1[6],eq1[7]);
+        Apuesta a=new Apuesta(user,eq1[6],eq1[7]);
         a.setVisible(true);
     }//GEN-LAST:event_botonApostar2ActionPerformed
 
     private void botonApostar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonApostar4ActionPerformed
-        Apuesta a=new Apuesta(eq1[2],eq1[3]);
+        Apuesta a=new Apuesta(user,eq1[2],eq1[3]);
         a.setVisible(true);
     }//GEN-LAST:event_botonApostar4ActionPerformed
 
     private void botonApostar5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonApostar5ActionPerformed
-        Apuesta a=new Apuesta(eq2[2],eq2[3]);
+        Apuesta a=new Apuesta(user,eq2[2],eq2[3]);
         a.setVisible(true);
     }//GEN-LAST:event_botonApostar5ActionPerformed
 
     private void botonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresarActionPerformed
         this.setVisible(false);
-        Perfil p=new Perfil(user);
-        p.setVisible(true);
+        Perfil p;
+        try {
+            p = new Perfil(user);
+            p.setVisible(true);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Torneo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_botonRegresarActionPerformed
 
     private void botonApostar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonApostar3ActionPerformed
-        Apuesta a=new Apuesta(eq1[0],eq1[1]);
+        Apuesta a=new Apuesta(user,eq1[0],eq1[1]);
         a.setVisible(true);
     }//GEN-LAST:event_botonApostar3ActionPerformed
 
     private void botonApostar6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonApostar6ActionPerformed
-        Apuesta a=new Apuesta(eq2[0],eq2[1]);
+        Apuesta a=new Apuesta(user,eq2[0],eq2[1]);
         a.setVisible(true);
     }//GEN-LAST:event_botonApostar6ActionPerformed
 
     private void botonApostar7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonApostar7ActionPerformed
-        Apuesta a=new Apuesta(eq3[0],eq3[1]);
+        Apuesta a=new Apuesta(user,eq3[1],eq3[0]);
         a.setVisible(true);
     }//GEN-LAST:event_botonApostar7ActionPerformed
-
-    public void iniciaTorneo() throws InterruptedException {
-        this.setVisible(true);     
-        semifinales();
-        ultimoPartido();
-        campeon();
-    }    
-
+ 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Bracket;
     private javax.swing.JLabel Equipo1;

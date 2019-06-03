@@ -5,6 +5,8 @@
  */
 package proyecto3;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,17 +15,25 @@ import javax.swing.JOptionPane;
  */
 public class Apuesta extends javax.swing.JFrame {
     
-    
+    Equipos e1;
+    Equipos e2;
     Probabilidad prob=new Probabilidad();
+    Usuario user;
     /**
      * Creates new form Apuesta
+     * @param user
      * @param e1
      * @param e2
      */
-    public Apuesta(Equipos e1,Equipos e2) {
+    public Apuesta(Usuario user,Equipos e1,Equipos e2) {
         initComponents();
+        this.user=user;
         equipo1.setText(e1.getNombre());
         equipo2.setText(e2.getNombre());
+        cuotaEq1.setText("Cuota decimal: "+prob.cuotaDecimal1(e1, e2));
+        cuotaEq2.setText("Cuota decimal: "+prob.cuotaDecimal2(e1, e2));
+        this.e1=e1;
+        this.e2=e2;
     }
 
     /**
@@ -39,10 +49,12 @@ public class Apuesta extends javax.swing.JFrame {
         equipo1 = new javax.swing.JLabel();
         apuesta1 = new javax.swing.JLabel();
         campoTeam1 = new javax.swing.JTextField();
+        cuotaEq1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         equipo2 = new javax.swing.JLabel();
         apuesta2 = new javax.swing.JLabel();
         campoTeam2 = new javax.swing.JTextField();
+        cuotaEq2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         versusLabel = new javax.swing.JLabel();
         jToggleButton1 = new javax.swing.JToggleButton();
@@ -50,10 +62,15 @@ public class Apuesta extends javax.swing.JFrame {
         setResizable(false);
 
         equipo1.setFont(new java.awt.Font("Verdana", 3, 52)); // NOI18N
+        equipo1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         equipo1.setText("jLabel1");
 
         apuesta1.setFont(new java.awt.Font("Segoe UI Semibold", 0, 18)); // NOI18N
         apuesta1.setText("APUESTA:");
+
+        cuotaEq1.setFont(new java.awt.Font("Segoe UI Semibold", 1, 12)); // NOI18N
+        cuotaEq1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        cuotaEq1.setText("jLabel1");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -65,17 +82,22 @@ public class Apuesta extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(campoTeam1, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
                 .addGap(36, 36, 36))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(equipo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(equipo1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(cuotaEq1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(114, 114, 114)
                 .addComponent(equipo1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 241, Short.MAX_VALUE)
+                .addGap(132, 132, 132)
+                .addComponent(cuotaEq1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 173, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(apuesta1)
                     .addComponent(campoTeam1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -95,6 +117,10 @@ public class Apuesta extends javax.swing.JFrame {
             }
         });
 
+        cuotaEq2.setFont(new java.awt.Font("Segoe UI Semibold", 1, 12)); // NOI18N
+        cuotaEq2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        cuotaEq2.setText("jLabel1");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -106,16 +132,19 @@ public class Apuesta extends javax.swing.JFrame {
                 .addComponent(campoTeam2, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
                 .addGap(24, 24, 24))
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(equipo2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(equipo2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addComponent(cuotaEq2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(119, 119, 119)
+                .addGap(43, 43, 43)
                 .addComponent(equipo2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 240, Short.MAX_VALUE)
+                .addGap(141, 141, 141)
+                .addComponent(cuotaEq2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 161, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(campoTeam2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(apuesta2, javax.swing.GroupLayout.Alignment.TRAILING))
@@ -203,9 +232,29 @@ public class Apuesta extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Debes apostar por solo 1 equipo",
                 "Advertencia",JOptionPane.WARNING_MESSAGE);
         }
-        //if(campoTeam1.getText()!=null && campoTeam2.getText()==null){
-           // campoTeam1.
-        //}
+        try {
+            if(campoTeam1.getText()!=null && campoTeam2.getText()==null && 
+                    prob.determinaGanador(e1, e2)==e1){
+                JOptionPane.showMessageDialog(null, "¡Ganó tu equipo!",
+                "Ganaste",JOptionPane.INFORMATION_MESSAGE);
+                float apuesta=Float.parseFloat(campoTeam1.getText());
+                user.setSaldo(ganancia(apuesta,e1,e2,e1));                
+            }
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Apuesta.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            if(campoTeam1.getText()==null && campoTeam2.getText()!=null && 
+                    prob.determinaGanador(e1, e2)==e2){
+                JOptionPane.showMessageDialog(null, "¡Ganó tu equipo!",
+                "Ganaste",JOptionPane.INFORMATION_MESSAGE);
+                float apuesta=Float.parseFloat(campoTeam1.getText());
+                user.setSaldo(ganancia(apuesta,e1,e2,e2));                
+            }
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Apuesta.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.setVisible(false);
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     /**
@@ -271,6 +320,8 @@ public class Apuesta extends javax.swing.JFrame {
     private javax.swing.JLabel apuesta2;
     private javax.swing.JTextField campoTeam1;
     private javax.swing.JTextField campoTeam2;
+    private javax.swing.JLabel cuotaEq1;
+    private javax.swing.JLabel cuotaEq2;
     private javax.swing.JLabel equipo1;
     private javax.swing.JLabel equipo2;
     private javax.swing.JPanel jPanel1;

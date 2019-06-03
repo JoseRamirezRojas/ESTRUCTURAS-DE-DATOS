@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -26,7 +28,6 @@ public class CalienteMx extends javax.swing.JFrame implements Serializable{
     public CalienteMx() {
         initComponents();
         tablaUsuarios = new TablaUsuarios();
-;
         try{   
             /* 
             ObjectOutputStream o = new ObjectOutputStream
@@ -218,8 +219,14 @@ public class CalienteMx extends javax.swing.JFrame implements Serializable{
                 "Advertencia",JOptionPane.ERROR_MESSAGE);                
         else if (tablaUsuarios.obtenerUsuario(campoUsuario.getText())!=null) {
             dispose();
-            Perfil perfil=new Perfil(tablaUsuarios.obtenerUsuario(campoUsuario.getText()));
-            perfil.setVisible(true);
+            Perfil perfil;
+            try {
+                perfil = new Perfil(tablaUsuarios.obtenerUsuario(campoUsuario.getText()));
+                perfil.setVisible(true);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(CalienteMx.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
             //Usuario ingreso = tablaUsuarios.obtenerUsuario(campoUsuario.getText().trim());             
         }
         else{

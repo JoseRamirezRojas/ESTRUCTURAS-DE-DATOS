@@ -18,7 +18,7 @@ public class Probabilidad implements Serializable{
         double prob2 = e2.getHabilidad() / e1.getHabilidad() + e2.getHabilidad();        
         double rand = Math.random();
         
-        Thread.sleep(2000);
+        Thread.sleep(6000);
         if(prob2>prob1){
             if(rand>=0&&rand<=prob2){
                 return e2;

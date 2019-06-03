@@ -17,16 +17,18 @@ import javax.swing.JOptionPane;
 public class Perfil extends javax.swing.JFrame implements Serializable{
     
     Usuario user;
-    
+    Torneo t;
     /**
      * Creates new form Perfil
      * @param user
+     * @throws java.lang.InterruptedException
      */
-    public Perfil(Usuario user) {
+    public Perfil(Usuario user) throws InterruptedException {
+        this.t = new Torneo(user);
         initComponents();
         this.user=user;
         bienvenida.setText("Bienvenido "+user.getNombre());
-        saldo.setText("Tu saldo es: $"+user.getSaldo());
+        saldo.setText("Tu saldo es $"+user.getSaldo());
     }
 
     /**
@@ -190,17 +192,16 @@ public class Perfil extends javax.swing.JFrame implements Serializable{
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 153, Short.MAX_VALUE)
                                 .addComponent(botonCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(140, 140, 140)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(botonApostar)
-                                    .addComponent(botonabonarSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(29, 29, 29)
-                                .addComponent(saldo)))
+                        .addGap(29, 29, 29)
+                        .addComponent(saldo)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(132, 132, 132)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(botonApostar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonabonarSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -209,11 +210,11 @@ public class Perfil extends javax.swing.JFrame implements Serializable{
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(saldo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                 .addComponent(botonApostar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addComponent(botonabonarSaldo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52)
+                .addGap(53, 53, 53)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botonHistorial, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -226,18 +227,23 @@ public class Perfil extends javax.swing.JFrame implements Serializable{
 
     private void botonApostarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonApostarActionPerformed
         this.setVisible(false);
-        Torneo t;
-        try {
-            t = new Torneo(user);
-            t.setVisible(true);
-            t.iniciaTorneo();
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Perfil.class.getName()).log(Level.SEVERE, null, ex);
-        }        
+        t.setVisible(true);
+        Thread hilo1 = new Thread (){
+            @Override
+            public void run(){
+                try {
+                    t.semifinales();
+                    t.ultimoPartido();
+                    t.campeon();
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Perfil.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        };
+        hilo1.start();
     }//GEN-LAST:event_botonApostarActionPerformed
 
     private void botonHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonHistorialActionPerformed
-        //jLabel1.setText(historial);
         JOptionPane.showMessageDialog(null, "HISTORIAL DE LA CUENTA:\n"+
                 user.getHistorial(),"Historial",JOptionPane.INFORMATION_MESSAGE); 
     }//GEN-LAST:event_botonHistorialActionPerformed
@@ -256,9 +262,14 @@ public class Perfil extends javax.swing.JFrame implements Serializable{
                 "Ingrese la cantidad a abonar a su saldo","Abonar saldo",
                 JOptionPane.QUESTION_MESSAGE ));
         user.setSaldo((float)user.getSaldo()+(float)abono);
-        Perfil p=new Perfil(user);
-        p.setVisible(true);
         
+        Perfil p;
+        try {
+            p = new Perfil(user);
+            p.setVisible(true);            
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Perfil.class.getName()).log(Level.SEVERE, null, ex);
+        }       
     }//GEN-LAST:event_botonabonarSaldoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
